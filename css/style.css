@@ -1420,3 +1420,25 @@ h3.quote::before {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+
+.comment-tree
+{
+  height: 322px;
+  overflow-y: scroll;
+  padding: 20px;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+}
+.comment-tree::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.comment-tree::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.comment-tree::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
