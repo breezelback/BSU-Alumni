@@ -48,6 +48,15 @@ class DataOperation extends Connect{
 
 	}
 
+	function getFullname($id) {
+		$sql = "SELECT * FROM user_information where id = $id";
+		$query = $this->connection->query($sql);
+		$row = $query->fetch();
+		
+		return $row->name. " " .$row->lastname;
+		// return "lance jared";
+	}
+
 	// public function required_validation($fields){
 	// 		$count = 0;
 
@@ -63,12 +72,12 @@ class DataOperation extends Connect{
 	// function getUser($userid){
 
 	// 	$query = "SELECT * FROM user_information where id = ".$userid;
-	// 	$stmt = $this->conn->prepare($query);
+	// 	$stmt = $this->connection->prepare($query);
 
     //     $result = $stmt->fetch();
 
 	// 	$userdata = $result->fetch_array();
-	// 	$username = $userdata['username'];
+	// 	$username = $userdata['name'];
 	// 	return $username;
 
 	// 	//return $userid;

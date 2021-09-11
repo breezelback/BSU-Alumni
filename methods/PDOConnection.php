@@ -15,11 +15,9 @@ class Connect{
         $this->connection = new PDO($dsn, $this->user, $this->password);
         //default is fetch object
         $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-		if ($this->connection) {
-			echo "Connected";
-		} else {
-            echo "conected";
-        }
+		if (!$this->connection) {
+			echo "Not Connected";
+		} 
 	}
 
 

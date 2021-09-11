@@ -30,6 +30,24 @@ if(isset($_POST["key"])) {
         $obj->insertAny('user_information', $userData, $message);
     endif;
 
+    if($key == 'post_forum') :
+
+        $now = new DateTime();
+        $current_date = $now->format('F j, Y');  
+        
+
+        $forumData = array(
+            "topic" => $_POST["topic"],
+            "description" => $_POST["description"],
+            "admin_id" => $_POST["admin_id"],
+            "date_created" => $current_date
+        );
+
+
+        $obj->insertAny('forum', $forumData, "The new topic is post successfully");
+    
+    endif;
+
 }
 
 

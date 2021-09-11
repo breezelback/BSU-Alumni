@@ -1,3 +1,8 @@
+<?php 
+$sql = $database->conn->query("SELECT * FROM user_information where account_status != 'user'");
+
+?>
+
 <table class="table" id="alluser_table">
   <thead class="thead-light">
     <tr>
@@ -8,23 +13,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    <?php while($row = $sql->fetch_array()): ?>
+        <tr>
+        <th scope="row"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
+        <td><?php echo $row["sr_code"]; ?></td>
+        <td><?php echo $row["course"]; ?></td>
+        <td>
+            <button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </td>
+        </tr>
+    <?php endwhile; ?>
+
   </tbody>
 </table>

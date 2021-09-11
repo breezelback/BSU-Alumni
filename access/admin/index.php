@@ -1,3 +1,16 @@
+<?php
+include "./../../methods/globalmethods.php";
+include "./../../methods/mysqliConnection.php";
+$meth = new DataOperation;
+$database = new Database;
+session_start();
+if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
+  header("Location: ../../login.php");
+}
+
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,7 +35,7 @@
 	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bsu-building.jpeg);">
 	  			<div class="user-logo">
 	  				<div class="img" style="background-image: url(images/logo.jpg);"></div>
-	  				<h3>Catriona Henderson</h3>
+	  				<h3><?php echo $meth->getFullname($_SESSION["id"]); ?></h3>
 	  			</div>
 	  		</div>
         <ul class="list-unstyled components mb-5">
@@ -42,10 +55,13 @@
             <a href="index.php?page=pendingusers"><span class="fa fa-lock mr-3"></span> Pending Accounts</a>
           </li>
           <li>
+            <a href="index.php?page=forum"><span class="fa fa-comments mr-3"></span> Create Forum</a>
+          </li>
+          <li>
             <a href="index.php?page=settings"><span class="fa fa-cog mr-3"></span> Settings</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+            <a href="./../../methods/logout.php"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
           </li>
         </ul>
 
@@ -54,7 +70,7 @@
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Administrator</h2>
-
+        <input type="hidden" id="myID" value="<?php echo $_SESSION["id"]; ?>">
         <?php 
 
         if (isset($_GET['page'])) {
@@ -72,8 +88,9 @@
       </div>
 		</div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
+    <script src="./../../plugins/jquery/jquery.js"></script>
+    <script src="./../../js/jquery.min.js"></script>
+    <script src="./../../js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script src="./../../plugins/datatables/datatables.min.js"></script>
@@ -83,5 +100,31 @@
   // initialize for all the pages the script is here
   $(document).ready(() => {
     $('#alluser_table').DataTable();
+    $('#pending_user').DataTable();
   })
+
+  // this is for publish forum page
+  publishForum = () => {
+    let topic = $('#topic');
+    let description = $('#description');
+    let admin_id = $('#myID');
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "post_forum",
+        topic: topic.val(),
+        description: description.val(),
+        admin_id: admin_id.val()
+      }, success: (response) => {
+        topic.val('');
+        description.val('');
+        alert(response)
+      }
+    })
+    
+  }
+
 </script>
