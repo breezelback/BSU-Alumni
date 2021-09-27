@@ -29,15 +29,26 @@
         <div class="block text-center">
 
           <h5 class="text-white">Alumni Login</h5>
+		<form action="./methods/loginOperation.php" method="POST">
 
-           <div class="form-group mt-3">
-	       		<input name="srcode" type="text" class="form-control" placeholder="SR-Code">
-	       </div>
-           <div class="form-group">
-	       		<input name="password" type="password" class="form-control" placeholder="Password">
-	       </div>
-
-	       <button class="btn btn-primary">Continue</button>
+		<?php if(isset($_GET['error'])) : ?>
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <?php echo $_GET['error'] ?>    
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+            </div>
+        <?php endif; ?>
+	
+				<div class="form-group mt-3">
+					<input name="srcode" type="text" class="form-control" placeholder="SR-Code">
+				</div>
+				<div class="form-group">
+					<input name="password" type="password" class="form-control" placeholder="Password">
+				</div>
+				
+				<input type="submit" class="btn btn-primary" value="Continue">
+		</form>
 
         </div>
       </div>
@@ -50,24 +61,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
-                 <form id="contact-form" class="contact__form" method="post" action="mail.php">
+                 <form id="contact-form" class="contact__form">
 
                     <h3 class="text-md mb-4">Registration Form</h3>
 
                     <div class="row">
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="name" type="text" class="form-control" placeholder="Lastame">
+		                        <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Lastame">
 		                    </div>
                     	</div>
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="name" type="text" class="form-control" placeholder="Firstname">
+		                        <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Firstname">
 		                    </div>
                     	</div>
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="name" type="text" class="form-control" placeholder="Middlename">
+		                        <input name="middlename" id="middlename" type="text" class="form-control" placeholder="Middlename">
 		                    </div>
                     	</div>
                     </div>
@@ -75,12 +86,12 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Email Address">
+		                        <input name="email" id="email" type="text" class="form-control" placeholder="Email Address">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Mobile Number">
+		                        <input name="mobile" id="mobile" type="text" class="form-control" placeholder="Mobile Number">
 		                    </div>
                     	</div>
                     </div>
@@ -88,7 +99,7 @@
                     <div class="row">
                     	<div class="col-md-12">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Address">
+		                        <input name="address" id="address" type="text" class="form-control" placeholder="Address">
 		                    </div>
                     	</div>
                     </div>
@@ -96,12 +107,12 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Department">
+		                        <input name="department" id="department" type="text" class="form-control" placeholder="Department">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Course">
+		                        <input name="course" id="course" type="text" class="form-control" placeholder="Course">
 		                    </div>
                     	</div>
                     </div> 
@@ -109,17 +120,17 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="SR Code">
+		                        <input name="sr_code" id="sr_code" type="text" class="form-control" placeholder="SR Code">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="password" type="password" class="form-control" placeholder="Password">
+		                        <input name="password" id="password" type="password" class="form-control" placeholder="Password">
 		                    </div>
                     	</div>
                     </div>
 
-                    <button class="btn btn-main" name="submit" type="submit">Send Message</button>
+                    <button class="btn btn-main" onclick="register()" name="submit" type="submit">Send Message</button>
 
                 </form>
             </div>
@@ -204,3 +215,42 @@
 
   </body>
   </html>
+  <script>
+
+	   register = () => {
+		let firstname = $('#firstname');
+		let lastname = $('#lastname');
+		let middlename = $('#middlename');
+		let email = $('#email');
+		let mobile = $('#mobile');
+		let address = $('#address');
+		let department = $('#department');
+		let course = $('#course');
+		let sr_code = $('#sr_code');
+		let password = $('#password');
+
+		$.ajax({
+			url: './methods/ajaxCall.php',
+			method: 'post',
+			dataType: 'text',
+			data: {
+				key: 'registerUser',
+				firstname: firstname.val(),
+				lastname: lastname.val(),
+				middlename: middlename.val(),
+				email: email.val(),
+				mobile: mobile.val(),
+				address: address.val(),
+				department: department.val(),
+				sr_code: sr_code.val(),
+				password: password.val(),
+				course: course.val()
+			}, success: (response) => {
+				alert(response)
+			}
+		})
+		
+	  }
+
+
+  </script>

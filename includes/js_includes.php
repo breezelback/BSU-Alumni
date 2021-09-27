@@ -1,6 +1,8 @@
     
 <!-- Main jQuery -->
 <script src="plugins/jquery/jquery.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
 <script src="js/contact.js"></script>
 <!-- Bootstrap 4.3.1 -->
 <script src="plugins/bootstrap/js/popper.js"></script>
