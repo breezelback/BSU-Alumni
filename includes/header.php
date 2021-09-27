@@ -1,3 +1,10 @@
+<?php 
+if (session_status() == PHP_SESSION_NONE) { //if there's no session_start yet...
+    session_start(); //do this
+}
+require 'methods/mysqliConnection.php'; 
+$database = new Database;
+?>
 <header class="navigation">
 	<nav class="navbar navbar-expand-lg py-4" id="navbar">
 		<div class="container">
@@ -15,23 +22,20 @@
 				<a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
 			  </li>
 			   <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-			   <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
-			   <li class="nav-item"><a class="nav-link" href="forums.php">Forum</a></li>
-			   <li class="nav-item"><a class="nav-link" href="jobs.php">Jobs</a></li>
-			   <!-- <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
-					<ul class="dropdown-menu" aria-labelledby="dropdown05">
-						<li><a class="dropdown-item" href="blog-grid.html">Blog Grid</a></li>
-						<li><a class="dropdown-item" href="blog-sidebar.html">Blog with Sidebar</a></li>
-
-						<li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
-					</ul>
-			  </li> -->
+			   <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])) { ?>
+				   <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+				   <li class="nav-item"><a class="nav-link" href="forums.php">Forum</a></li>
+				   <li class="nav-item"><a class="nav-link" href="jobs.php">Jobs</a></li>
+				<?php } ?>
 			   <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
 			</ul>
 
 			<form class="form-lg-inline my-2 my-md-0 ml-lg-4 text-center">
-			  <a href="login.php" class="btn btn-solid-border btn-round-full"><i class="fa fa-user"></i> My Account</a>
+				<?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])) { ?>
+					<a href="methods/logout.php" class="btn btn-solid-border btn-round-full"><i class="fa fa-user"></i> My Account</a>
+				<?php } else { ?>	
+					<a href="login.php" class="btn btn-solid-border btn-round-full"><i class="fa fa-user"></i> My Account</a>
+				<?php } ?>
 			</form>
 		  </div>
 		</div>

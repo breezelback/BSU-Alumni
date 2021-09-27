@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
   <!-- Required meta tags -->
@@ -34,7 +34,14 @@
   </div>
 </section>
 
+<?php 
+$forumId = $_GET['id'];
 
+$sql = ' SELECT `id`, `topic`, `description`, `admin_id`, `date_created` FROM `forum` WHERE `id` = '.$forumId.' ';
+$exec = $database->conn->query($sql);
+$row = $exec->fetch_assoc();
+
+ ?>
 
 <section class="section blog-wrap bg-gray">
     <div class="container">
@@ -47,15 +54,13 @@
 
 			<div class="blog-item-content bg-white p-5">
 				<div class="blog-item-meta bg-gray py-1 px-2">
-					<span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>Creativity</span>
+					<!-- <span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>Creativity</span> -->
 					<span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>5 Comments</span>
-					<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> 28th January</span>
+					<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> <?php echo $row['date_created']; ?></span>
 				</div> 
 
-				<h2 class="mt-3 mb-4"><a href="blog-single.html">Improve design with typography?</a></h2>
-				<p class="lead mb-4">Non illo quas blanditiis repellendus laboriosam minima animi. Consectetur accusantium pariatur repudiandae!</p>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus natus, consectetur? Illum libero vel nihil nisi quae, voluptatem, sapiente necessitatibus distinctio voluptates, iusto qui. Laboriosam autem, nam voluptate in beatae.</p>
+				<h2 class="mt-3 mb-4"><a href="#"><?php echo $row['topic']; ?></a></h2>
+				<p><?php echo $row['description']; ?></p>
 
 			</div>
 		</div>
@@ -93,14 +98,18 @@
 	</div>
 
 	<div class="col-lg-12">
-		<form class="contact-form bg-white rounded p-5" id="comment-form">
+		<div class="contact-form bg-white rounded p-5" id="comment-form">
 			<h4 class="mb-4">Write a comment</h4> 
 
 
-			<textarea class="form-control mb-3" name="comment" id="comment" cols="30" rows="5" placeholder="Comment"></textarea>
+			<textarea class="form-control mb-3" name="comment" id="forumComment" cols="30" rows="5" placeholder="Comment"></textarea>
 
-			<input class="btn btn-main btn-round-full" type="submit" name="submit-contact" id="submit_contact" value="Submit Message">
-		</form>
+			<input type="text" value="<?php echo $forumId; ?>" id="forumId" style="display:none;">
+			<input type="text" value="<?php echo $_SESSION['id']; ?>" id="commentatorId" style="display:none;">
+
+
+			<input class="btn btn-main btn-round-full" type="button" name="submit-contact" id="btnSubmitComment" value="Submit Message">
+		</div>
 	</div>
 </div>
             </div>
@@ -135,29 +144,28 @@
 	<div class="sidebar-widget latest-post card border-0 p-4 mb-3">
 		<h5>Latest Topics</h5>
 
-        <div class="media border-bottom py-3">
-            <!-- <a href="#"><img class="mr-4" src="images/blog/bt-3.jpg" alt=""></a> -->
-            <div class="media-body">
-                <h6 class="my-2"><a href="#">Thoughtful living in los Angeles</a></h6>
-                <span class="text-sm text-muted">03 Mar 2018</span>
-            </div>
-        </div>
 
-        <div class="media border-bottom py-3">
-            <!-- <a href="#"><img class="mr-4" src="images/blog/bt-2.jpg" alt=""></a> -->
-           <div class="media-body">
-                <h6 class="my-2"><a href="#">Vivamus molestie gravida turpis.</a></h6>
-                <span class="text-sm text-muted">03 Mar 2018</span>
-            </div>
-        </div>
+		<?php 
 
-        <div class="media py-3">
-            <!-- <a href="#"><img class="mr-4" src="images/blog/bt-1.jpg" alt=""></a> -->
-            <div class="media-body">
-                <h6 class="my-2"><a href="#">Fusce lobortis lorem at ipsum semper sagittis</a></h6>
-                <span class="text-sm text-muted">03 Mar 2018</span>
-            </div>
-        </div>
+			$latest = ' SELECT `id`, `topic`, `description`, `admin_id`, `date_created` FROM `forum` WHERE `id` != '.$forumId.' ORDER BY `id` DESC LIMIT 3';
+			$execLatest = $database->conn->query($latest);
+			while ($rowLatest = $execLatest->fetch_assoc())
+			{
+
+		 ?>
+
+
+
+		        <div class="media border-bottom py-3">
+		            <!-- <a href="#"><img class="mr-4" src="images/blog/bt-3.jpg" alt=""></a> -->
+		            <div class="media-body">
+		                <h6 class="my-2"><a href="forum-post.php?id=<?php echo $rowLatest['id']; ?>"><?php echo $rowLatest['topic']; ?></a></h6>
+		                <span class="text-sm text-muted"><?php echo $rowLatest['date_created']; ?></span>
+		            </div>
+		        </div>
+
+		 <?php } ?>
+
 	</div>
 
 </div>

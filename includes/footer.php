@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="copyright">
-						&copy; Copyright Reserved to <span class="text-color">Megakit.</span> by <a href="https://themefisher.com/" target="_blank">Themefisher</a>
+						&copy; Copyright <span class="text-color">Batangas State University Alumni Tracking and Management System.</span> 
 					</div>
 				</div>
 				<div class="col-lg-6 text-left text-lg-right">

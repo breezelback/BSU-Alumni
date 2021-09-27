@@ -27,19 +27,31 @@ if(isset($_POST['srcode']) && isset($_POST['password'])) :
         $res = $database->conn->query($query);
     }
 
-    if($res->num_rows === 1) {
+    if($res->num_rows === 1) 
+    {
 
         $row = $res->fetch_array();
-        if($row['sr_code'] === $username && $row['account_password'] === $password) {
+        if($row['sr_code'] === $username && $row['account_password'] === $password) 
+        {
             session_start();
 
-            if($row['account_status'] === 'admin') {
+            if($row['account_status'] === 'admin') 
+            {
                 $_SESSION['sr_code'] = $row['sr_code'];
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['account_type'] = $row['account_status'];
                     header("Location: ./../access/admin/index.php");
                 exit();
             }
+            else if ($row['account_status'] === 'alumni') 
+            {
+                $_SESSION['sr_code'] = $row['sr_code'];
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['account_type'] = $row['account_status'];
+                    header("Location: ../");
+                exit();
+            }
+
 
         }
     }

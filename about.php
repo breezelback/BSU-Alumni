@@ -67,19 +67,27 @@
 			<div class="col-lg-4 col-md-6 col-sm-6">
 				<div class="about-info-item mb-4 mb-lg-0">
 					<h3 class="mb-3"><span class="text-color mr-2 text-md ">01.</span>Our Mission</h3>
-					<p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque maxime sunt deleniti voluptas distinctio .</p>
+					<p>A university committed to producing leaders by providing a 21st century learning environment through innovations in education, multidisciplinary research, and community and industry partnerships in order to nurture the spirit of nationhood, propel the national economy, and engage the world for sustainable development.</p>
 				</div>		
 			</div>
 			<div class="col-lg-4 col-md-6 col-sm-6">
 				<div class="about-info-item mb-4 mb-lg-0">
-					<h3 class="mb-3"><span class="text-color mr-2 text-md">02.</span>Vission</h3>
-					<p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque maxime sunt deleniti voluptas distinctio .</p>
+					<h3 class="mb-3"><span class="text-color mr-2 text-md">02.</span>Vision</h3>
+					<p>A premier national university that develops leaders in the global knowledge economy.</p>
 				</div>		
 			</div>
 			<div class="col-lg-4 col-md-6 col-sm-6">
 				<div class="about-info-item mb-4 mb-lg-0">
 					<h3 class="mb-3"><span class="text-color mr-2 text-md">03.</span>Core Values</h3>
-					<p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque maxime sunt deleniti voluptas distinctio .</p>
+					<p>
+						<ul>
+							<li>Patriotism</li>
+							<li>Service</li>
+							<li>Integrity</li>
+							<li>Resilience</li>
+							<li>Faith</li>
+						</ul>
+					</p>
 				</div>		
 			</div>
 		</div>
