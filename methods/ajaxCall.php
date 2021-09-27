@@ -2,11 +2,13 @@
 
 include "mysqliConnection.php";
 include "globalmethods.php";
+include "PHPMailer.php";
 
 $obj = new DataOperation;
 $database = new Database;
+$mailer = new Mailer;
 
-if(isset($_POST["key"])) {
+if(isset($_POST["key"])) :
     $key = $_POST["key"];
 
     if($key == 'registerUser') :
@@ -48,7 +50,104 @@ if(isset($_POST["key"])) {
     
     endif;
 
-}
+    if($key == 'updateAccountStatus') : 
+
+        $id = $_POST["id"];
+        $status = $_POST["status"];
+
+        $sql = "SELECT * FROM user_information WHERE id = $id";
+        $query = $database->conn->query($sql);
+        $row = $query->fetch_array();
+        $fullname = $row['name']. " " .$row['lastname'];
+
+        if(filter_var($row['email_address'], FILTER_VALIDATE_EMAIL)) {
+            // $updateQuery = $database->conn->query("UPDATE user_information SET account_status='$status' WHERE id = $id");
+           //exit("UPDATE user_information SET account_status = '$status' WHERE id = $id");
+            // if($updateQuery) {
+
+                if($mailer->sendEmail($row['email_address'], $fullname)) {
+                    exit("Account status is updated");
+                } else {
+                    exit("Failed to update maybe the stm server is down, please try again!");
+                }
+            // }
+
+        } else {
+            exit("This email has invalid format");
+        }
+
+    endif;
+
+    if($key == 'request_srcode') :
+
+        $message = "Request successfully sent. Please wait for the email of the admin";
+        $now = new DateTime();
+        $now->setTimezone(new DateTimeZone('Asia/Manila'));
+        // exit($now->format('j-m-Y, g:i a'));  
+
+        $request = array(
+            "name" => $_POST['firstname'],
+            "lastname" => $_POST['lastname'],
+            "middlename" => $_POST['middlename'],
+            "email" => $_POST['email'],
+            "mobile_no" => $_POST['mobile'],
+            "address" => $_POST['address'],
+            "department" => $_POST['department'],
+            "course" => $_POST['course'],
+            "date_request" => $now->format('j-m-Y')
+        );
+
+
+        $obj->insertAny('sr_request', $request, $message);
+    endif;
+
+    if($key == 'get_selected') :
+        $id = $_POST["id"];
+
+        $sql = "SELECT * FROM sr_request WHERE id = $id";
+        $query = $database->conn->query($sql);
+        // $row = $query->fetch_array();
+
+        if($row = $query->fetch_array()) {
+            $data = array(
+                "email" => $row["email"],
+                "fullname" => $row["name"]. " ".$row["lastname"]
+            );
+
+            exit(json_encode($data));
+        } else {
+            exit($sql);
+        }
+    endif;
+
+    if ($key == 'send_sr_code') :
+        $email = $_POST['email'];
+        $srCode = $_POST['srCode'];
+        $fullname = $_POST['name'];
+        $id = $_POST['id'];
+
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            // exit()
+
+            if($mailer->sendSrCode($srCode, $email, $fullname)) {
+                $sql = "DELETE FROM sr_request WHERE id = $id";
+                $query = $database->conn->query($sql);
+                if($query) {
+                    exit('SR code send successfully');
+                } else {
+                    exit($sql);
+                }
+            } else {
+                exit('Failed to send, Please try again');
+            }
+        } else {
+            exit("This email has invalid format");
+        }
+
+    endif;
+
+
+endif;
 
 
 

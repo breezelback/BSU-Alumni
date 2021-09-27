@@ -2,7 +2,7 @@
 $sql = $database->conn->query("SELECT * FROM user_information where account_status != 'user'");
 
 ?>
-
+<div class="container-fluid">
 <table class="table" id="alluser_table">
   <thead class="thead-light">
     <tr>
@@ -27,3 +27,4 @@ $sql = $database->conn->query("SELECT * FROM user_information where account_stat
 
   </tbody>
 </table>
+</div>

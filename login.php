@@ -143,17 +143,17 @@
                     <div class="row">
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="name" type="text" class="form-control" placeholder="Lastame">
+		                        <input name="sr_lastname" id="sr_lastname" type="text" class="form-control" placeholder="Lastame">
 		                    </div>
                     	</div>
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="name" type="text" class="form-control" placeholder="Firstname">
+		                        <input name="sr_fname" id="sr_fname" type="text" class="form-control" placeholder="Firstname">
 		                    </div>
                     	</div>
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="name" type="text" class="form-control" placeholder="Middlename">
+		                        <input name="sr_middle" id="sr_middle" type="text" class="form-control" placeholder="Middlename">
 		                    </div>
                     	</div>
                     </div>
@@ -161,12 +161,12 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Email Address">
+		                        <input name="sr_email" id="sr_email" type="text" class="form-control" placeholder="Email Address">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Mobile Number">
+		                        <input name="sr_mobile"  id="sr_mobile" type="text" class="form-control" placeholder="Mobile Number">
 		                    </div>
                     	</div>
                     </div>
@@ -174,7 +174,7 @@
                     <div class="row">
                     	<div class="col-md-12">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Address">
+		                        <input name="sr_address" id="sr_address" type="text" class="form-control" placeholder="Address">
 		                    </div>
                     	</div>
                     </div>
@@ -182,17 +182,17 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Department">
+		                        <input name="sr_department" id="sr_department" type="text" class="form-control" placeholder="Department">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="text" type="text" class="form-control" placeholder="Course">
+		                        <input name="sr_course" id="sr_course" type="text" class="form-control" placeholder="Course">
 		                    </div>
                     	</div>
                     </div> 
 
-                    <button class="btn btn-main" name="submit" type="submit">Request</button>
+                    <button class="btn btn-main" onclick="request_sr()" >Request</button>
 
                 </form>
             </div>
@@ -216,6 +216,36 @@
   </body>
   </html>
   <script>
+
+	  request_sr = () => {
+		let firstname = $('#sr_fname');
+		let lastname = $('#sr_lastname');
+		let middlename = $('#sr_middle');
+		let email = $('#sr_email');
+		let mobile = $('#sr_mobile');
+		let address = $('#sr_address');
+		let department = $('#sr_department');
+		let course = $('#sr_course');
+		
+		$.ajax({
+			url: './methods/ajaxCall.php',
+			method: 'post',
+			dataType: 'text',
+			data: {
+				key: 'request_srcode',
+				firstname: firstname.val(),
+				lastname: lastname.val(),
+				middlename: middlename.val(),
+				email: email.val(),
+				mobile: mobile.val(),
+				address: address.val(),
+				department: department.val(),
+				course: course.val()
+			}, success: (response) => {
+				alert(response)
+			}
+		})
+	  }
 
 	   register = () => {
 		let firstname = $('#firstname');

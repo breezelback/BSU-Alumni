@@ -23,6 +23,7 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="./../../plugins/datatables/datatables.min.css">
+    <link rel="stylesheet" href="css/admin.css">
   </head>
   <body>
 		
@@ -56,6 +57,12 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
           </li>
           <li>
             <a href="index.php?page=forum"><span class="fa fa-comments mr-3"></span> Create Forum</a>
+          </li>
+          <li>
+            <a href="index.php?page=joinforum"><span class="fa fa-commenting mr-3"></span> Join Forum</a>
+          </li>
+          <li>
+            <a href="index.php?page=srrequest"><span class="fa fa-id-card-o mr-3"></span> SR Request</a>
           </li>
           <li>
             <a href="index.php?page=settings"><span class="fa fa-cog mr-3"></span> Settings</a>
