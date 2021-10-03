@@ -146,6 +146,24 @@ if(isset($_POST["key"])) :
 
     endif;
 
+    if($key == 'post_job') :
+        $now = new DateTime();
+        $current_date = $now->format('F j, Y');  
+        
+
+        $jobs = array(
+            "title" => $_POST["job_title"],
+            "description" => $_POST["job_description"],
+            "admin_id" => $_POST["admin_id"],
+            "salary" => $_POST["job_salary"],
+            "date_posted" => $current_date
+        );
+
+
+        $obj->insertAny('jobs', $jobs, "The new job is post successfully");
+    
+
+    endif;
 
 endif;
 

@@ -62,6 +62,12 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
             <a href="index.php?page=joinforum"><span class="fa fa-commenting mr-3"></span> Join Forum</a>
           </li>
           <li>
+            <a href="index.php?page=jobs"><span class="fa fa-commenting mr-3"></span> Jobs</a>
+          </li>
+          <li>
+            <a href="index.php?page=gallery"><span class="fa fa-picture-o mr-3"></span> Gallery</a>
+          </li>
+          <li>
             <a href="index.php?page=srrequest"><span class="fa fa-id-card-o mr-3"></span> SR Request</a>
           </li>
           <li>
@@ -133,5 +139,131 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
     })
     
   }
+
+  post_job = () => {
+    let job_title = $('#job_title');
+    let job_description = $('#job_description');
+    let job_salary = $('#job_salary');
+    let admin_id = $('#myID');
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "post_job",
+        job_title: job_title.val(),
+        job_description: job_description.val(),
+        job_salary: job_salary.val(),
+        admin_id: admin_id.val()
+      }, success: (response) => {
+        job_title.val('');
+        job_description.val('');
+        job_salary.val('');
+        alert(response)
+      }
+    })
+    
+  }
+
+
+// for gallery
+
+$(document).ready(function(){
+   
+function load_image_data()
+ {
+   $.ajax({
+      url:"./pages/load_gallery_table.php",
+      method:"POST",
+      success:function(data)
+      {
+      $('#image_table').html(data);
+      }
+   });
+ } 
+
+ load_image_data();
+
+
+
+$('#multiple_files').change(function(){
+  var error_images = '';
+  var form_data = new FormData();
+  var files = $('#multiple_files')[0].files;
+  if(files.length > 10)
+  {
+   error_images += 'You can not select more than 10 files';
+  }
+  else
+  {
+   for(var i=0; i<files.length; i++)
+   {
+    var name = document.getElementById("multiple_files").files[i].name;
+    var ext = name.split('.').pop().toLowerCase();
+    if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+    {
+     error_images += '<p>Invalid '+i+' File</p>';
+    }
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(document.getElementById("multiple_files").files[i]);
+    var f = document.getElementById("multiple_files").files[i];
+    var fsize = f.size||f.fileSize;
+    if(fsize > 2000000)
+    {
+     error_images += '<p>' + i + ' File Size is very big</p>';
+    }
+    else
+    {
+     form_data.append("file[]", document.getElementById('multiple_files').files[i]);
+    }
+   }
+  }
+  if(error_images == '')
+  {
+   $.ajax({
+    url:"./pages/upload_image_function.php",
+    method:"POST",
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend:function(){
+     $('#error_multiple_files').html('<br /><label class="text-primary">Uploading...</label>');
+    },   
+    success:function(data)
+    {
+     $('#error_multiple_files').html('<br /><label class="text-success">Uploaded</label>');
+     load_image_data();
+    }
+   });
+  }
+  else
+  {
+   $('#multiple_files').val('');
+   $('#error_multiple_files').html("<span class='text-danger'>"+error_images+"</span>");
+   return false;
+  }
+ });  
+
+});
+
+$(document).on('click', '.delete', function(){
+  var image_id = $(this).attr("id");
+  var image_name = $(this).data("image_name");
+  if(confirm("Are you sure?"))
+  {
+   $.ajax({
+    url:"deleteLatestProject.php",
+    method:"POST",
+    data:{image_id:image_id, image_name:image_name},
+    success:function(data)
+    {
+     load_image_data();
+     alert("Image removed");
+    }
+   });
+  }
+ }); 
 
 </script>
