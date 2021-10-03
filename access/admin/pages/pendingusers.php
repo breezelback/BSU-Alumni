@@ -15,7 +15,7 @@ $sql = $database->conn->query("SELECT * FROM user_information where account_stat
     <tbody>
       <?php while($row = $sql->fetch_array()): ?>
           <tr>
-          <th scope="row"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
+          <th scope="row" id="<?php echo"pending_".$row['id'];  ?>"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
           <td><?php echo $row["sr_code"]; ?></td>
           <td><?php echo $row["course"]; ?></td>
           <td class="text-center">
@@ -25,7 +25,7 @@ $sql = $database->conn->query("SELECT * FROM user_information where account_stat
                Status <i class="fa fa-thumbs-up" aria-hidden="true"></i>
               </button>
   
-              <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button class="btn btn-danger btn-sm" onclick="delete_pending(<?php echo $row['id']; ?>)">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
           </td>
           </tr>
       <?php endwhile; ?>

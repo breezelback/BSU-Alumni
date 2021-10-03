@@ -56,13 +56,13 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
             <a href="index.php?page=pendingusers"><span class="fa fa-lock mr-3"></span> Pending Accounts</a>
           </li>
           <li>
-            <a href="index.php?page=forum"><span class="fa fa-comments mr-3"></span> Create Forum</a>
+            <a href="index.php?page=forum"><span class="fa fa-comments mr-3"></span> Forum</a>
           </li>
+          <!-- <li>
+            <a href="index.php?page=joinforum"><span class="fa fa-commenting mr-3"></span>Forum</a>
+          </li> -->
           <li>
-            <a href="index.php?page=joinforum"><span class="fa fa-commenting mr-3"></span> Join Forum</a>
-          </li>
-          <li>
-            <a href="index.php?page=jobs"><span class="fa fa-commenting mr-3"></span> Jobs</a>
+            <a href="index.php?page=jobs"><span class="fa fa-handshake-o mr-3"></span> Jobs</a>
           </li>
           <li>
             <a href="index.php?page=gallery"><span class="fa fa-picture-o mr-3"></span> Gallery</a>
@@ -114,6 +114,7 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
   $(document).ready(() => {
     $('#alluser_table').DataTable();
     $('#pending_user').DataTable();
+    $('#job_table').DataTable();
   })
 
   // this is for publish forum page
@@ -244,26 +245,106 @@ $('#multiple_files').change(function(){
    $('#error_multiple_files').html("<span class='text-danger'>"+error_images+"</span>");
    return false;
   }
- });  
+ });
 
-});
-
-$(document).on('click', '.delete', function(){
+ $(document).on('click', '.delete', function(){
   var image_id = $(this).attr("id");
   var image_name = $(this).data("image_name");
   if(confirm("Are you sure?"))
   {
-   $.ajax({
-    url:"deleteLatestProject.php",
-    method:"POST",
-    data:{image_id:image_id, image_name:image_name},
-    success:function(data)
-    {
-     load_image_data();
-     alert("Image removed");
-    }
-   });
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "del_image",
+        image_id:image_id,
+        image_name:image_name
+      }, success: (response) => {
+        alert(response);
+       load_image_data();
+      }
+    })
+  //  $.ajax({
+  //   url:"./../../methods/ajaxCall.php",
+  //   method:"POST",
+  //   dataType: "text",
+  //   data: {key: "del_image", image_id:image_id, image_name:image_name},
+  //   success:function(data)
+  //   {
+  //    load_image_data();
+  //     alert(data);
+  //   }
+  //  });
   }
- }); 
+ });   
+
+}); // end of onready
+
+delete_job = (id) => {
+  if(confirm("Are you sure?"))
+  {
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "del_job",
+        id: id
+      }, success: (response) => {
+        alert(response);
+        $("#job_"+id).parent().remove();
+      // load_image_data();
+      }
+    })
+
+  }
+}
+
+delete_user = (id) => {
+  if(confirm("Are you sure?"))
+  {
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "del_user",
+        id: id
+      }, success: (response) => {
+        alert(response);
+        $("#user_"+id).parent().remove();
+      // load_image_data();
+      }
+    })
+
+  }
+}
+
+delete_pending = (id) => {
+  if(confirm("Are you sure?"))
+  {
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "del_user",
+        id: id
+      }, success: (response) => {
+        alert(response);
+        $("#pending_"+id).parent().remove();
+      // load_image_data();
+      }
+    })
+
+  }
+}
+
+
 
 </script>

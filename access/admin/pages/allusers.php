@@ -15,12 +15,12 @@ $sql = $database->conn->query("SELECT * FROM user_information where account_stat
   <tbody>
     <?php while($row = $sql->fetch_array()): ?>
         <tr>
-        <th scope="row"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
+        <th scope="row" id="<?php echo "user_".$row['id']; ?>"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
         <td><?php echo $row["sr_code"]; ?></td>
         <td><?php echo $row["course"]; ?></td>
         <td>
             <button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button>
-            <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button class="btn btn-danger btn-sm" onclick="delete_user(<?php echo $row['id']; ?>)"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </td>
         </tr>
     <?php endwhile; ?>
