@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
   <!-- Required meta tags -->
@@ -52,21 +52,21 @@
 				<div class="intro-item mb-5 mb-lg-0"> 
 					<i class="ti-desktop color-one"></i>
 					<h4 class="mt-4 mb-3">Job Posting</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, ducimus.</p>
+					<p>View latest uploaded job that suits for you.</p>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="intro-item mb-5 mb-lg-0">
 					<i class="ti-thought color-one"></i> 
 					<h4 class="mt-4 mb-3">Real-time Forum</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, ducimus.</p>
+					<p>Sharing of knowledge and thoughts to help every alumni grow.</p>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="intro-item">
 					<i class="ti-gallery color-one"></i>
 					<h4 class="mt-4 mb-3">Alumni Gallery</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, ducimus.</p>
+					<p>Image gallery of Alumni.</p>
 				</div>
 			</div> 
 		</div>
@@ -81,7 +81,7 @@
 				<div class="cta-item  bg-white p-5 rounded">
 					<span class="h6 text-color">Forgot your SR-CODE? We got you!</span>
 					<!-- <h2 class="mt-2 mb-4">Entrust Your Project to Our Best Team of Professionals</h2> -->
-					<p class="lead mb-4">Send us these details and we will email you your SR-CODE.</p>
+					<!-- <p class="lead mb-4">Send us these details and we will email you your SR-CODE.</p>
 
 					<div class="row">
 						<div class="col-sm-4">
@@ -116,11 +116,11 @@
 							Course
 							<input type="text" class="form-control">
 						</div>
-					</div>
+					</div> -->
 
 					<p class="mt-3">
 						<center>
-							<a href="#" target="_blank" class="btn btn-main animated fadeInUp btn-round-full" >Submit<i class="btn-icon fa fa-angle-right ml-2"></i></a>
+							<a href="login.php" class="btn btn-main animated fadeInUp btn-round-full" >Requst for SR-CODE<i class="btn-icon fa fa-angle-right ml-2"></i></a>
 						</center>
 					</p>
 					<!-- <h3><i class="ti-mobile mr-3 text-color"></i>+23 876 65 455</h3> -->
@@ -145,54 +145,28 @@
 
 	<div class="container">
 		<div class="row testimonial-wrap">
-			<div class="testimonial-item position-relative">
-				<i class="ti-quote-left text-color"></i>
 
-				<div class="testimonial-item-content">
-					<p class="testimonial-text">Quam maiores perspiciatis temporibus odio reiciendis error alias debitis atque consequuntur natus iusto recusandae numquam corrupti facilis blanditiis.</p>
+			<?php 
+			$selectFeedback = ' SELECT `id`, `contact_name`, `contact_email`, `contact_message`, `status`, `date_uploaded` FROM `tbl_contact_us` ';
+			$execFeedback = $database->conn->query($selectFeedback);
+			while ($feedback = $execFeedback->fetch_assoc())
+			{
+			 ?>
+				<div class="testimonial-item position-relative">
+					<i class="ti-quote-left text-color"></i>
 
-					<div class="testimonial-author">
-						<h5 class="mb-0 text-capitalize">Thomas Johnson</h5>
-						<p>Excutive Director,themefisher</p>
+					<div class="testimonial-item-content">
+						<p class="testimonial-text"><?php echo $feedback['contact_message']; ?></p>
+
+						<div class="testimonial-author">
+							<h5 class="mb-0 text-capitalize"><?php echo $feedback['contact_name']; ?></h5>
+							<p><?php echo $feedback['contact_email']; ?></p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="testimonial-item position-relative">
-				<i class="ti-quote-left text-color"></i>
 
-				<div class="testimonial-item-content">
-					<p class="testimonial-text">Consectetur adipisicing elit. Quam maiores perspiciatis temporibus odio reiciendis error alias debitis atque consequuntur natus iusto recusandae .</p>
+			<?php } ?>
 
-					<div class="testimonial-author">
-						<h5 class="mb-0 text-capitalize">Mickel hussy</h5>
-						<p>Excutive Director,themefisher</p>
-					</div>
-				</div>
-			</div>
-			<div class="testimonial-item position-relative">
-				<i class="ti-quote-left text-color"></i>
-
-				<div class="testimonial-item-content">
-					<p class="testimonial-text">Quam maiores perspiciatis temporibus odio reiciendis error alias debitis atque consequuntur natus iusto recusandae numquam corrupti.</p>
-
-					<div class="testimonial-author">
-						<h5 class="mb-0 text-capitalize">James Watson</h5>
-						<p>Excutive Director,themefisher</p>
-					</div>
-				</div>
-			</div>
-			<div class="testimonial-item position-relative">
-				<i class="ti-quote-left text-color"></i>
-
-				<div class="testimonial-item-content">
-					<p class="testimonial-text">Consectetur adipisicing elit. Quam maiores perspiciatis temporibus odio reiciendis error alias debitis atque consequuntur natus iusto recusandae .</p>
-
-					<div class="testimonial-author">
-						<h5 class="mb-0 text-capitalize">Mickel hussy</h5>
-						<p>Excutive Director,themefisher</p>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </section>

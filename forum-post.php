@@ -17,7 +17,17 @@
 <body>
 
 <!-- Header Start --> 
-  <?php include 'includes/header.php'; ?>
+  <?php include 'includes/header.php';
+
+  if (!isset($_SESSION['id']) || empty($_SESSION['id'])) 
+  {
+    header('Location: login.php');
+  }
+
+
+
+  ?>
+
 <!-- Header Close --> 
 
 <div class="main-wrapper ">
@@ -55,7 +65,7 @@ $row = $exec->fetch_assoc();
 			<div class="blog-item-content bg-white p-5">
 				<div class="blog-item-meta bg-gray py-1 px-2">
 					<!-- <span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>Creativity</span> -->
-					<span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>5 Comments</span>
+					<!-- <span class="text-muted text-capitalize mr-3" id="commentCount"><i class="ti-comment mr-2"></i></span> -->
 					<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> <?php echo $row['date_created']; ?></span>
 				</div> 
 
@@ -68,30 +78,10 @@ $row = $exec->fetch_assoc();
 
 	<div class="col-lg-12 mb-5">
 		<div class="comment-area card border-0 p-5">
-			<h4 class="mb-4">2 Comments</h4>
-			<ul class="comment-tree list-unstyled">
+			<h4 class="mb-4"><span id="commentCount"></span></h4>
+			<ul class="comment-tree list-unstyled" id="alumniComments">
 
-				<?php for ($i=0; $i < 5; $i++) { ?>
 
-				<li class="mb-5" style="border-bottom: 0.5px solid darkgrey;">
-					<div class="comment-area-box">
-						<!-- <img alt="" src="images/blog/test1.jpg" class="img-fluid float-left mr-3 mt-2"> -->
-
-						<h5 class="mb-1">Philip W</h5>
-						<span>United Kingdom</span>
-
-						<div class="comment-meta mt-4 mt-lg-0 mt-md-0 float-lg-right float-md-right">
-							<!-- <a href="#"><i class="icofont-reply mr-2 text-muted"></i>Reply |</a> -->
-							<span class="date-comm">Posted October 7, 2018 </span>
-						</div>
-
-						<div class="comment-content mt-3">
-							<p>Some consultants are employed indirectly by the client via a consultancy staffing company, a company that provides consultants on an agency basis. </p>
-						</div>
-					</div>
-				</li>
-
-				<?php } ?>
 
 			</ul>
 		</div>
@@ -153,9 +143,6 @@ $row = $exec->fetch_assoc();
 			{
 
 		 ?>
-
-
-
 		        <div class="media border-bottom py-3">
 		            <!-- <a href="#"><img class="mr-4" src="images/blog/bt-3.jpg" alt=""></a> -->
 		            <div class="media-body">
@@ -182,6 +169,19 @@ $row = $exec->fetch_assoc();
     </div>
 
    <?php include 'includes/js_includes.php'; ?>
+
+   <script>
+
+	fetchComments(<?php echo $forumId; ?>);
+	fetchCommentCount(<?php echo $forumId; ?>);
+
+	setInterval(function(){
+		fetchCommentCount(<?php echo $forumId; ?>);
+	  	fetchComments(<?php echo $forumId; ?>);
+	}, 3000);
+
+   </script>
+
 
   </body>
 </html>

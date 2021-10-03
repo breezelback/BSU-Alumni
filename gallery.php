@@ -17,7 +17,20 @@
 <body>
 
 <!-- Header Start --> 
-  <?php include 'includes/header.php'; ?>
+  <?php include 'includes/header.php'; 
+
+  if (!isset($_SESSION['id']) || empty($_SESSION['id'])) 
+  {
+    header('Location: login.php');
+  }
+
+
+
+  ?>
+
+
+
+
 <!-- Header Close --> 
 
 <div class="main-wrapper ">

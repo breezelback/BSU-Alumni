@@ -43,28 +43,33 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
-                 <form id="contact-form" class="contact__form" method="post" action="mail.php">
-                 <!-- form message -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="alert alert-success contact__msg" style="display: none" role="alert">
-                                Your message was sent successfully.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end message -->
+                 <!-- <form action="methods/uploadContactForm.php" id="contact-form" class="contact__form" method="post"> -->
+                 <form action="methods/uploadContactForm.php" method="post">
+
+                  <?php if (isset($_GET['auth'])){ ?>
+                   <!-- form message -->
+                      <div class="row">
+                          <div class="col-12">
+                              <div class="alert alert-success contact__msg" role="alert">
+                                  Your message was sent successfully.
+                              </div>
+                          </div>
+                      </div>  
+                      <!-- end message -->
+                  <?php } ?>
+
                     <span class="text-color">Send a message</span>
                     <h3 class="text-md mb-4">Contact Form</h3>
                     <div class="form-group">
-                        <input name="name" type="text" class="form-control" placeholder="Your Name">
+                        <input name="contact_name" type="text" class="form-control" placeholder="Your Name" required="">
                     </div>
                     <div class="form-group">
-                        <input name="email" type="email" class="form-control" placeholder="Email Address">
+                        <input name="contact_email" type="email" class="form-control" placeholder="Email Address" required="">
                     </div>
                     <div class="form-group-2 mb-4">
-                        <textarea name="message" class="form-control" rows="4" placeholder="Your Message"></textarea>
+                        <textarea name="contact_message" class="form-control" rows="4" placeholder="Your Message" required=""></textarea>
                     </div>
-                    <button class="btn btn-main" name="submit" type="submit">Send Message</button>
+                    <button class="btn btn-main" name="btnContactUs" type="submit">Send Message</button>
                 </form>
             </div>
 
