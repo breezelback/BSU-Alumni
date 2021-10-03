@@ -57,6 +57,18 @@ class DataOperation extends Connect{
 		// return "lance jared";
 	}
 
+
+	function delete_any($table, $id) {
+		$success = false;
+
+		$sql = $this->connection->query("DELETE FROM ".$tbl_name." where id = '$id'");
+		if($sql) {
+			$success = true;
+		}
+
+		return $success;
+	}
+
 	// public function required_validation($fields){
 	// 		$count = 0;
 

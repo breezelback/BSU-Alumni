@@ -165,6 +165,48 @@ if(isset($_POST["key"])) :
 
     endif;
 
+    if($key == 'del_image') :
+        $id = $_POST['image_id'];
+        $file_path = '../access/admin/gallery/' . $_POST["image_name"];
+        // exit($id);
+
+        if(unlink($file_path))
+        {
+            $sql = "DELETE FROM gallery WHERE id = $id";
+            $query = $database->conn->query($sql);
+            if($query) {
+                exit('Image deleted');
+            } else {
+                exit($sql);
+            }
+        }
+
+    endif;
+
+    if($key == 'del_job') :
+        $id = $_POST['id'];
+
+        $sql = "DELETE FROM jobs WHERE id = $id";
+        $query = $database->conn->query($sql);
+        if($query) {
+            exit('Job deleted');
+        } else {
+            exit($sql);
+        }
+    endif;
+
+    if($key == 'del_user') :
+        $id = $_POST['id'];
+
+        $sql = "DELETE FROM user_information WHERE id = $id";
+        $query = $database->conn->query($sql);
+        if($query) {
+            exit('User deleted');
+        } else {
+            exit($sql);
+        }
+    endif;
+
 endif;
 
 
