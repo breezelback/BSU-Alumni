@@ -55,6 +55,10 @@ if(isset($_POST['srcode']) && isset($_POST['password'])) :
 
         }
     }
+    else
+    {
+        echo "<script>alert('User not found!'); window.location='../login.php';</script>";
+    }
 
 endif;
 
