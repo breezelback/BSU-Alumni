@@ -24,8 +24,10 @@ class Mailer {
         $mail->SMTPSecure = "tls";
         $mail->Port       = 587;
         $mail->Host       = "smtp.gmail.com";
-        $mail->Username   = "jaredladrera21@gmail.com";
-        $mail->Password   = "2013107148";
+        // $mail->Username   = "jaredladrera21@gmail.com";
+        // $mail->Password   = "2013107148";
+        $mail->Username   = "bsu.atms@gmail.com";
+        $mail->Password   = "jekjek32";
 
         $mail->IsHTML(true);
         $mail->AddAddress($email, $recipeinct_name);
@@ -54,8 +56,10 @@ class Mailer {
         $mail->SMTPSecure = "tls";
         $mail->Port       = 587;
         $mail->Host       = "smtp.gmail.com";
-        $mail->Username   = "jaredladrera21@gmail.com";
-        $mail->Password   = "2013107148";
+        // $mail->Username   = "jaredladrera21@gmail.com";
+        // $mail->Password   = "2013107148";
+        $mail->Username   = "bsu.atms@gmail.com";
+        $mail->Password   = "jekjek32";
 
         $mail->IsHTML(true);
         $mail->AddAddress($email, $name );
@@ -63,7 +67,7 @@ class Mailer {
         // $mail->AddReplyTo("reply-to-email@domain", "reply-to-name");
         // $mail->AddCC("cc-recipient-email@domain", "cc-recipient-name");
         $mail->Subject = "SR Code ";
-        $content = 'Hi mr/ms '.$name.' this your SR Code '.$sr_code;
+        $content = 'Hi mr/ms '.$name.' this your SR Code: <b> '.$sr_code.'</b>';
 
         $mail->MsgHTML($content); 
         if($mail->Send()) {

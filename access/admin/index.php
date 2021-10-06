@@ -14,9 +14,11 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Sidebar 09</title>
+  	<title>BSU Administrator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" href="images/logo1.png" type="image/x-icon" />
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
@@ -33,9 +35,9 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
 					<button type="button" id="sidebarCollapse" class="btn btn-primary">
 	        </button>
         </div>
-	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bsu-building.jpeg);">
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bg4-1.jpg);">
 	  			<div class="user-logo">
-	  				<div class="img" style="background-image: url(images/logo.jpg);"></div>
+	  				<div class="img" style="background-image: url(images/logo1.png);"></div>
 	  				<h3><?php echo $meth->getFullname($_SESSION["id"]); ?></h3>
 	  			</div>
 	  		</div>
