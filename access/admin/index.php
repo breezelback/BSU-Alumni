@@ -8,13 +8,20 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
   header("Location: ../../login.php");
 }
 
+$query = 'SELECT profile_pic FROM user_information WHERE id = '.$_SESSION['id'] .'';
+$stmt = $database->conn->query($query);
+
+$profile_pic = $stmt->fetch_assoc();
+
+// echo $profile_pic['profile_pic'];
+
 ?>
 
 
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Sidebar 09</title>
+  	<title>Administrator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -35,7 +42,7 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
         </div>
 	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bsu-building.jpeg);">
 	  			<div class="user-logo">
-	  				<div class="img" style="background-image: url(images/logo.jpg);"></div>
+	  				<div class="img" style="background-image: url(<?php echo($profile_pic['profile_pic'] == '') ?  './profile_pic/default.png' : './profile_pic/'.$profile_pic['profile_pic']; ?>);"></div>
 	  				<h3><?php echo $meth->getFullname($_SESSION["id"]); ?></h3>
 	  			</div>
 	  		</div>
@@ -82,7 +89,7 @@ if(!isset($_SESSION['id']) && !isset($_SESSION['account_type'])) {
 
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Administrator</h2>
+        <!-- <h2 class="mb-4">Administrator</h2> -->
         <input type="hidden" id="myID" value="<?php echo $_SESSION["id"]; ?>">
         <?php 
 
@@ -345,6 +352,172 @@ delete_pending = (id) => {
   }
 }
 
+// this is for api
+$(document).ready(() => {
+  fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log(json))
+});
 
+
+$(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+    input.attr("type", "text");
+    } else {
+    input.attr("type", "password");
+}
+});
+
+
+// preview image
+
+$(document).on("change", "#file_add", function() {
+        event.preventDefault(); 
+
+        //get file details
+          var property = this.files[0];
+          var image_name = property.name;
+          var image_extension = image_name.split('.').pop().toLowerCase();
+          var image_size = property.size;
+
+        //filter extension
+        if(jQuery.inArray(image_extension, ['gif','png','jpg','jpeg'])==-1) {
+          
+           alert("Invalid Format!");
+        }
+
+        //filter size
+        else if(image_size>3000000) {
+          alert("File is too big");
+          
+        } 
+
+        else if(this.files && this.files[0]) {
+          document.getElementById("image_add").classList.remove("required-fields");
+          var obj = new FileReader();
+          obj.onload = function(data) { document.getElementById("image_add").src = data.target.result; }
+          obj.readAsDataURL(this.files[0]);
+        }
+
+       });
+
+
+ updateAccount = (id) => {
+   let name = $('#name').val();
+   let lastname = $('#lastname').val();
+   let middlename = $('#middle_name').val();
+   let email_address = $('#email').val();
+   let course = $('#course').val();
+   let department = $('#department').val();
+   let password = $('#password').val();
+   let default_image = $('#default_image').val();
+   let file = $('#file_add').val();
+
+  if(name != '' && lastname != '' && middlename != '' && email_address != '' && course != '' && department != '' && password != '') {
+    var file_property = document.getElementById("file_add").files[0];
+      var form_data = new FormData();
+      form_data.append("file_add",file_property);
+       var other_data = "get_key=update_profile&name="+name+"&id="+id+"&lastname="+lastname+"&middlename="+middlename+"&email_address="+email_address+"&course="+course+"&department="+department+"&password="+password+"&image_name="+new Date().getTime();
+    console.log(other_data)
+      $.ajax({
+      url: "./../../methods/ajaxCall.php?"+other_data,
+      method: "post",
+      // dataType: "text",
+      data: form_data,
+      contentType:false,
+      cache:false,
+      processData:false,
+      success: (response) => {
+        alert(response);
+        // $("#pending_"+id).parent().remove();
+      // load_image_data();
+      }
+    })
+  
+  } else {
+    alert('All fields are required');
+  }
+   
+ }
+
+ // for open modal
+
+ account_information = (id) => {
+  //  let name = $('#name').val();
+  //  let lastname = $('#lastname').val();
+  //  let middlename = $('#middle_name').val();
+  //  let email_address = $('#email').val();
+  //  let course = $('#course').val();
+  //  let department = $('#department').val();
+  //  let password = $('#password').val();
+  //  let sr_number = $('#sr_number').val();
+  //  let status = $('#status').val();
+
+  $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "json",
+      data: {
+        key: "get_user_information",
+        id: id
+      }, success: (response) => {
+        // alert(response.sr_code)
+
+        $('#account_information').modal('show');
+         $('#ename').val(response.name);
+         $('#elastname').val(response.lastname);
+         $('#emiddle_name').val(response.middle_name);
+         $('#eemail').val(response.email_address);
+         $('#ecourse').val(response.course);
+         $('#edepartment').val(response.department);
+         $('#epassword').val(response.account_password);
+         $('#esr_number').val(response.sr_code);
+         $('#estatus').val(response.account_status);
+         $('#user_id').val(response.id);
+       
+      }
+    })
+ }
+
+ // for saving updated user
+ save_user = () => {
+   let name = $('#ename').val();
+   let lastname = $('#elastname').val();
+   let middlename = $('#emiddle_name').val();
+   let email_address = $('#eemail').val();
+   let course = $('#ecourse').val();
+   let department = $('#edepartment').val();
+   let password = $('#epassword').val();
+   let sr_number = $('#esr_number').val();
+   let status = $('#estatus').val();
+   let id = $('#user_id').val();
+
+   $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "save_new_information",
+        id: id,
+        name: name,
+        lastname: lastname,
+        middlename: middlename,
+        email_address: email_address,
+        course: course,
+        department: department,
+        password: password,
+        sr_number: sr_number,
+        status: status
+      }, success: (response) => {
+        alert(response)
+       
+      }
+    })
+
+
+ }
 
 </script>

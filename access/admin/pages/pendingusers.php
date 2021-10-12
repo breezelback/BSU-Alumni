@@ -19,12 +19,11 @@ $sql = $database->conn->query("SELECT * FROM user_information where account_stat
           <td><?php echo $row["sr_code"]; ?></td>
           <td><?php echo $row["course"]; ?></td>
           <td class="text-center">
-              <button class="btn btn-primary btn-sm">View <i class="fa fa-eye" aria-hidden="true"></i></button>
               
               <button type="button" class="btn btn-success btn-sm" onclick="modalOpenForAccountUpdate(<?php echo $row['id']; ?>)">
                Status <i class="fa fa-thumbs-up" aria-hidden="true"></i>
               </button>
-  
+              <button class="btn btn-primary btn-sm" onclick="account_information(<?php echo $row['id']; ?>)">Details <i class="fa fa-eye" aria-hidden="true"></i></button>
               <button class="btn btn-danger btn-sm" onclick="delete_pending(<?php echo $row['id']; ?>)">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
           </td>
           </tr>
@@ -65,6 +64,107 @@ $sql = $database->conn->query("SELECT * FROM user_information where account_stat
   
   </table>
 </div>
+
+
+<div class="modal fade bd-example-modal-lg" id="account_information" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Account details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+
+        <div class="container-fluid">
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="name">Name <span>*</span></label>
+                    <input type="text" id="ename" class="form-control">
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="lastname">Lastname <span>*</span></label>
+                    <input type="text" id="elastname"  class="form-control">
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="emiddle_name">Middle Name <span>*</span></label>
+                    <input type="text" id="emiddle_name" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+            <div class="form-group">
+                    <label for="sr_number">SR Number <span>*</span></label>
+                    <input type="text" id="esr_number" class="form-control">
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="email">Email Address <span>*</span></label>
+                    <input type="text" id="eemail" class="form-control">
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="course">course <span>*</span></label>
+                    <input type="text" id="ecourse" class="form-control">
+                </div>
+            </div>
+        </div>                
+        <div class="row">
+            <div class="col col-md-4">
+            <div class="form-group">
+                <label for="status">Status <span>*</span></label>
+                <select class="form-control" id="estatus">
+                    <option value="user">user</option>
+                    <option value="alumni">Alumni</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="department">Department <span>*</span></label>
+                    <input type="text" id="edepartment" class="form-control">
+                </div>
+            </div>
+            <div class="col col-md-4">
+            <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" id="epassword" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+ 
+
+        </div>
+            
+
+
+        <!-- end modal body -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <script>
 function modalOpenForAccountUpdate(id) {
 
