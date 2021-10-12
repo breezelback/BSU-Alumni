@@ -207,6 +207,109 @@ if(isset($_POST["key"])) :
         }
     endif;
 
+    if($key == 'get_user_information') :
+        $id = $_POST['id'];
+
+        $sql = $database->conn->query("SELECT * FROM user_information WHERE id = $id");
+        
+        if($row = $sql->fetch_array()) {
+            $data = array(
+                'name' => $row['name'],
+                'lastname' => $row['lastname'],
+                'sr_code' => $row['sr_code'],
+                'middle_name' => $row['middle_name'],
+                'email_address' => $row['email_address'],
+                'department' => $row['department'],
+                'course' => $row['course'],
+                'account_password' => $row['account_password'],
+                'account_status' => $row['account_status'],
+                'id' => $id
+            );
+
+            exit(json_encode($data));
+        } else {
+            exit('Queries not executed properly');
+        }
+    endif;
+
+    if($key == 'save_new_information') :
+
+        $id = $_POST['id'];
+
+        $userData = array(
+            "name" => $_POST['name'],
+            "lastname" => $_POST['lastname'],
+            "middle_name" => $_POST['middlename'],
+            "email_address" => $_POST['email_address'],
+            // "mobile_number" => $_POST['mobile'],
+            "department" => $_POST['department'],
+            "course" => $_POST['course'],
+            "sr_code" => $_POST['sr_number'],
+            "account_password" => $_POST['password'],
+            "account_status" => $_POST['status']
+        );
+
+        if($obj->updateAnyBool('user_information', $userData, $id)){
+            exit("Update successfully");
+        } else {
+            exit("Update failed");
+        }
+    endif;
+
+
+endif;
+
+if(isset($_GET['get_key'])) :
+
+    $get_key = $_GET['get_key'];
+
+    if($get_key == 'update_profile') :
+
+        // $name = $_GET['name'];
+        // $lastname = $_GET['lastname'];
+        // $middlename = $_GET['middlename'];
+        $id = $_GET['id'];
+        $image_name = $_GET['image_name'];
+        // $email_address = $_GET['email_address'];
+        // $course = $_GET['course'];
+        // $department = $_GET['department'];
+        // $password = $_GET['password'];
+
+        $data = array(
+            'name' => $_GET['name'],
+            'lastname' => $_GET['lastname'],
+            'middle_name' => $_GET['middlename'],
+            'email_address' => $_GET['email_address'],
+            'course' => $_GET['course'],
+            'department' => $_GET['department'],
+            'account_password' => $_GET['password']
+        );
+
+        if($obj->updateAnyBool('user_information', $data, $id)){
+            if($_FILES["file_add"]["name"] != ""){
+                $test=explode(".", $_FILES["file_add"]["name"]);
+                $extension = end($test);
+                $image = $id.'_'.$image_name.'.'.$extension;
+                $location = '../access/admin/profile_pic/'.$image;
+                move_uploaded_file($_FILES["file_add"]["tmp_name"], $location);
+        
+                $query = "UPDATE user_information SET profile_pic='$image' WHERE id='$id'";
+        
+                if($database->conn->query($query)){
+                    exit('Updated');
+                } else {
+                    exit($query);
+                }
+            }
+
+        } else {
+            exit('status '+$obj->updateAnyBool('user_information', $data, $id));
+        }
+        
+        // $text_update="UPDATE user_in set news_title = '$news_title', news_desc = '$des' where id = '$news_id'";
+
+    endif;
+
 endif;
 
 
