@@ -8,7 +8,7 @@
   
   <meta name="author" content="themefisher.com">
 
-  <title>BSU Malvar| Alumni Tracking System</title>
+  <title>BSU Malvar | Alumni Tracking System</title>
 
   <?php include 'includes/css_includes.php'; ?>
 </head>

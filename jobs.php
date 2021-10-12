@@ -48,7 +48,13 @@
     <div class="container">
         <div class="row">
 
-			<?php for ($i=0; $i < 6; $i++) { ?>
+      <?php
+      $sql = ' SELECT `id`, `title`, `description`, `salary`, `admin_id`, date_posted FROM `jobs` ';
+      $exec = $database->conn->query($sql);
+      while ($row = $exec->fetch_assoc()) 
+      {
+      ?>
+
 				<div class="col-lg-6 col-md-6 mb-5">
 					<div class="blog-item">
 
@@ -57,13 +63,13 @@
 							<div class="blog-item-meta bg-gray py-1 px-2">
 								<!-- <span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>Creativity</span> -->
 								<!-- <span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>5 Comments</span> -->
-								<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> 28th January</span>
+								<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> <?php echo $row['date_posted']; ?></span>
 							</div> 
 
-							<h3 class="mt-3 mb-3"><a href="blog-single.html">Improve design with typography?</a></h3>
-							<p class="mb-4">Non illo quas blanditiis repellendus laboriosam minima animi. Consectetur accusantium pariatur repudiandae!</p>
+							<h3 class="mt-3 mb-3"><a href="blog-single.html"></i> <?php echo $row['title']; ?></a></h3>
+							<p class="mb-4"></i> <?php echo $row['description']; ?></p>
 
-							<a href="job-post.php" class="btn btn-small btn-main btn-round-full">Learn More</a>
+							<a href="job-post.php?id=<?php echo $row['id']; ?>" class="btn btn-small btn-main btn-round-full">Learn More</a>
 						</div>
 
 					</div>

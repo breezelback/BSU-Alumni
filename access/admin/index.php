@@ -21,9 +21,11 @@ $profile_pic = $stmt->fetch_assoc();
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Administrator</title>
+  	<title>BSU Administrator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" href="images/logo1.png" type="image/x-icon" />
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
@@ -40,7 +42,7 @@ $profile_pic = $stmt->fetch_assoc();
 					<button type="button" id="sidebarCollapse" class="btn btn-primary">
 	        </button>
         </div>
-	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bsu-building.jpeg);">
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bg4-1.jpg);">
 	  			<div class="user-logo">
 	  				<div class="img" style="background-image: url(<?php echo($profile_pic['profile_pic'] == '') ?  './profile_pic/default.png' : './profile_pic/'.$profile_pic['profile_pic']; ?>);"></div>
 	  				<h3><?php echo $meth->getFullname($_SESSION["id"]); ?></h3>
