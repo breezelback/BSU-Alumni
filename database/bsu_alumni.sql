@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2021 at 04:00 AM
+-- Generation Time: Oct 29, 2021 at 09:06 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.29
 
@@ -42,7 +42,8 @@ CREATE TABLE `forum` (
 
 INSERT INTO `forum` (`id`, `topic`, `description`, `admin_id`, `date_created`) VALUES
 (1, 'sadad', 'sdfsd', 2, 'September 11, 2021'),
-(2, 'Zx', 'X', 2, 'September 11, 2021');
+(2, 'Zx', 'X', 2, 'September 11, 2021'),
+(3, 'test', 'tesr', 2, 'October 3, 2021');
 
 -- --------------------------------------------------------
 
@@ -61,11 +62,8 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `image_name`, `date_posted`) VALUES
-(1, 'suggest part2.PNG', '2021-10-02'),
-(2, 'filter if the fields exists.PNG', '2021-10-02'),
-(3, 'getting match phrase if the sentence have dhl.PNG', '2021-10-02'),
-(4, 'update by id.PNG', '2021-10-02'),
-(5, 'multiple updates by id.PNG', '2021-10-02');
+(1, 'suggest part2.PNG', '2021-10-10'),
+(2, 'Zoom BG 1.1.jpg', '2021-10-29');
 
 -- --------------------------------------------------------
 
@@ -76,6 +74,7 @@ INSERT INTO `gallery` (`id`, `image_name`, `date_posted`) VALUES
 CREATE TABLE `jobs` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
+  `company` varchar(100) NOT NULL,
   `description` varchar(300) NOT NULL,
   `salary` varchar(50) NOT NULL,
   `admin_id` varchar(50) NOT NULL,
@@ -86,9 +85,10 @@ CREATE TABLE `jobs` (
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`id`, `title`, `description`, `salary`, `admin_id`, `date_posted`) VALUES
-(1, 'test', 'test', '123', '2', '0'),
-(2, 'test', 'test', '123', '2', 'October 2, 2021');
+INSERT INTO `jobs` (`id`, `title`, `company`, `description`, `salary`, `admin_id`, `date_posted`) VALUES
+(2, 'test', 'google', 'test', '123', '2', 'October 2, 2021'),
+(3, 'web developer', '', 'develop website using react and firebase', '23000-39000', '9', 'October 29, 2021'),
+(4, 'IT System developer', 'facebook', 'upgarde old software', '50000', '9', 'October 29, 2021');
 
 -- --------------------------------------------------------
 
@@ -109,13 +109,6 @@ CREATE TABLE `sr_request` (
   `date_request` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `sr_request`
---
-
-INSERT INTO `sr_request` (`id`, `name`, `lastname`, `middlename`, `email`, `address`, `mobile_no`, `department`, `course`, `date_request`) VALUES
-(8, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'bilucao malvar batangas', '09307980536', '', '', '26-09-2021');
-
 -- --------------------------------------------------------
 
 --
@@ -133,21 +126,23 @@ CREATE TABLE `user_information` (
   `course` varchar(100) NOT NULL,
   `sr_code` varchar(50) NOT NULL,
   `account_password` varchar(100) NOT NULL,
-  `account_status` varchar(40) NOT NULL
+  `account_status` varchar(40) NOT NULL,
+  `profile_pic` varchar(100) NOT NULL,
+  `date_register` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_information`
 --
 
-INSERT INTO `user_information` (`id`, `name`, `lastname`, `middle_name`, `email_address`, `department`, `mobile_number`, `course`, `sr_code`, `account_password`, `account_status`) VALUES
-(2, 'lance', 'cabiscuelas', 'ladrera', 'ladrera21@gmail.com', 'it', '09307980536', 'it', '123', '123', 'admin'),
-(3, 'dgfd', 'dgfdg', '', 'ladrera21@gmail.com', 'ghj', '', 'ghj', 'gj', 'ghj', 'alumni'),
-(4, 'lance', 'cabiscuelas', 'ladrera', '123', 'it', '09307980536', 'it', '26', '123', 'user'),
-(5, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'it', '09307980536', 'ir', '', '123', 'alumni'),
-(6, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'it', '09307980536', 'ghj', '5678', '123', 'alumni'),
-(7, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'it', '09307980536', 'it', '345', '123', 'user'),
-(8, 'lance', 'cabiscuelas', 'f', 'ladrera21@gmail.com', 'dfdg', '09307980536', 'dfd', '', 'lance21', 'user');
+INSERT INTO `user_information` (`id`, `name`, `lastname`, `middle_name`, `email_address`, `department`, `mobile_number`, `course`, `sr_code`, `account_password`, `account_status`, `profile_pic`, `date_register`) VALUES
+(5, 'lance', 'cabiscuelas', 'update', 'ladrera21@gmail.com', 'it', '09307980536', 'ir updated', '', '123', 'alumni', '', ''),
+(6, 'lance', 'cabiscuelas', 'ladrera', 'ladrera21@gmail.com', 'it', '09307980536', 'ghj', '5678', '123', 'alumni', '', ''),
+(7, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'it', '09307980536', 'it', '345', '123', 'user', '', ''),
+(8, 'lance', 'cabiscuelas', 'f', 'ladrera21@gmail.com', 'dfdg', '09307980536', 'dfd', '', 'lance21', 'user', '', ''),
+(9, 'lance', 'ladrera', 'l', 'ladrera21@gmail.com', 'it', '092345678', 'it', '123', '123', 'admin', '9_1633783737844.PNG', ''),
+(10, 'lance', 'cabiscuelas', 'ladrera', '123', 'rew', '09307980536', 'wr', 's29495', '123', 'user', '', '2021-10-29'),
+(11, 'lance', 'cabiscuelas', 'sf', '123', 'sdf', '09307980536', 'sfd', 'sdf', '123', 'user', '', '2021-10-30');
 
 --
 -- Indexes for dumped tables
@@ -191,31 +186,31 @@ ALTER TABLE `user_information`
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sr_request`
 --
 ALTER TABLE `sr_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_information`
 --
 ALTER TABLE `user_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

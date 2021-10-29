@@ -2,33 +2,35 @@
 $sql = $database->conn->query("SELECT * FROM sr_request ORDER BY id DESC");
 
 ?>
+<div class="container">
+  <table class="table" id="alluser_table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Fullname</th>
+        <th scope="col">Department</th>
+        <th scope="col">Course</th>
+        <th scope="col">Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php while($row = $sql->fetch_array()): ?>
+          <tr id="sr_<?php echo $row['id']; ?>">
+          <th scope="row"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
+          <td><?php echo $row["department"]; ?></td>
+          <td><?php echo $row["course"]; ?></td>
+  
+          <td>
+              <button class="btn btn-primary btn-sm" onclick="modalForSrForm(<?php echo $row['id'] ?>)">Send SR code</button>
+              <button class="btn btn-success btn-sm">View</button>
+              <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </td>
+          </tr>
+      <?php endwhile; ?>
+  
+    </tbody>
+  </table>
 
-<table class="table" id="alluser_table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">Fullname</th>
-      <th scope="col">Department</th>
-      <th scope="col">Course</th>
-      <th scope="col">Operations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php while($row = $sql->fetch_array()): ?>
-        <tr id="sr_<?php echo $row['id']; ?>">
-        <th scope="row"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
-        <td><?php echo $row["department"]; ?></td>
-        <td><?php echo $row["course"]; ?></td>
-
-        <td>
-            <button class="btn btn-primary btn-sm" onclick="modalForSrForm(<?php echo $row['id'] ?>)">Send SR code</button>
-            <button class="btn btn-success btn-sm">View</button>
-            <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
-        </td>
-        </tr>
-    <?php endwhile; ?>
-
-  </tbody>
-</table>
+</div>
 
 <div class="modal d-example-modal-md" id="send_sr_request" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-md" role="document">

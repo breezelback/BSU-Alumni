@@ -248,6 +248,9 @@
 	  }
 
 	   register = () => {
+		var today = new Date();
+        var currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
 		let firstname = $('#firstname');
 		let lastname = $('#lastname');
 		let middlename = $('#middlename');
@@ -274,7 +277,8 @@
 				department: department.val(),
 				sr_code: sr_code.val(),
 				password: password.val(),
-				course: course.val()
+				course: course.val(),
+				currentDate: currentDate,
 			}, success: (response) => {
 				alert(response)
 			}
