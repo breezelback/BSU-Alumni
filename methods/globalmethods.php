@@ -48,7 +48,6 @@ class DataOperation extends Connect{
 
 	}
 	function updateAnyBool($tbl_name, $data, $id){
-
 		$sql = '';
 		$sql2 = '';
 		$sql1 ="UPDATE ".$tbl_name." SET ";

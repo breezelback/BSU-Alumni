@@ -28,7 +28,7 @@
                           <th scope="row"><?php echo $row["topic"];?></th>
                           <td><?php echo $row["date_created"]; ?></td>
                           <td class="text-center">
-                              <button class="btn btn-primary btn-sm">Join</button>
+                              <!-- <button class="btn btn-primary btn-sm">Join</button> -->
                               <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
                           </td>
                           </tr>

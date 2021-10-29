@@ -24,7 +24,8 @@ if(isset($_POST["key"])) :
             "course" => $_POST['course'],
             "sr_code" => $_POST['sr_code'],
             "account_password" => $_POST['password'],
-            "account_status" => "user"
+            "account_status" => "user",
+            "date_register" => $_POST['currentDate']
         );
 
        // exit($userData);
@@ -156,6 +157,7 @@ if(isset($_POST["key"])) :
             "description" => $_POST["job_description"],
             "admin_id" => $_POST["admin_id"],
             "salary" => $_POST["job_salary"],
+            "company" => $_POST["company"],
             "date_posted" => $current_date
         );
 
@@ -232,6 +234,27 @@ if(isset($_POST["key"])) :
         }
     endif;
 
+    if($key == 'get_job_information') :
+        $id = $_POST['id'];
+
+        $sql = $database->conn->query("SELECT * FROM jobs WHERE id = $id");
+
+        if($row = $sql->fetch_array()) {
+            $data = array(
+                'title' => $row['title'],
+                'company' => $row['company'],
+                'salary' => $row['salary'],
+                'description' => $row['description'],
+                'id' => $id
+            );
+
+            exit(json_encode($data));
+        } else {
+            exit('Queries not executed properly');
+        }
+    
+    endif;
+
     if($key == 'save_new_information') :
 
         $id = $_POST['id'];
@@ -255,6 +278,23 @@ if(isset($_POST["key"])) :
             exit("Update failed");
         }
     endif;
+
+    if($key == 'save_edited_job') {
+        $id = $_POST['id'];
+
+        $userData = array(
+            "title" => $_POST['title'],
+            "company" => $_POST['company'],
+            "description" => $_POST['description'],
+            "salary" => $_POST['salary'],
+        );
+
+        if($obj->updateAnyBool('jobs', $userData, $id)){
+            exit("Update successfully");
+        } else {
+            exit("Update failed");
+        }
+    }
 
 
 endif;

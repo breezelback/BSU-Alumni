@@ -50,7 +50,7 @@ $profile_pic = $stmt->fetch_assoc();
 	  		</div>
         <ul class="list-unstyled components mb-5">
           <li class="active">
-            <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+            <a href="./"><span class="fa fa-home mr-3"></span> Home</a>
           </li>
           <!-- <li>
               <a href="#"><span class="fa fa-download mr-3 notif"><small class="d-flex align-items-center justify-content-center">5</small></span> Download</a>
@@ -80,7 +80,7 @@ $profile_pic = $stmt->fetch_assoc();
             <a href="index.php?page=srrequest"><span class="fa fa-id-card-o mr-3"></span> SR Request</a>
           </li>
           <li>
-            <a href="index.php?page=settings"><span class="fa fa-cog mr-3"></span> Settings</a>
+            <a href="index.php?page=settings"><span class="fa fa-cog mr-3"></span> Account Settings</a>
           </li>
           <li>
             <a href="./../../methods/logout.php"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
@@ -114,8 +114,11 @@ $profile_pic = $stmt->fetch_assoc();
     <script src="./../../js/jquery.min.js"></script>
     <script src="./../../js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js"></script>  
     <script src="./../../plugins/datatables/datatables.min.js"></script>
+    <script src="./dependency/chart/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+   
   </body>
 </html>
 <script>
@@ -124,7 +127,94 @@ $profile_pic = $stmt->fetch_assoc();
     $('#alluser_table').DataTable();
     $('#pending_user').DataTable();
     $('#job_table').DataTable();
-  })
+
+    
+    $.ajax({
+    url: "http://localhost/BSU-Alumni/methods/chart_data.php",
+    method: "GET",
+    success: function(data) {
+
+var ctx = document.getElementById('bar_chart').getContext('2d');
+
+
+new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+            label: 'Total ',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [data.jan, data.feb, data.march, data.apr, data.may, data.june, data.july, data.aug, data.sept, data.oct, data.nov, data.dec],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+              ],
+              borderWidth: 3
+        }]
+    },
+    options:{
+      legend: {
+      display: false
+    }  
+    }
+});
+
+    },
+    error: function(data) {
+        console.log(data);
+    }
+})
+
+var pieConfig = document.getElementById('pie_chart');
+
+new Chart(pieConfig, {
+  type: 'pie',
+  data: {
+    labels: ["Employed", "Unemployed"],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#95a5a6",
+      ],
+      data: [12, 19]
+    }]
+  },
+  option : {
+    bezierCurve : false,
+    // onAnimationComplete: done 
+  }
+});
+
+  }) // end of onready
 
   // this is for publish forum page
   publishForum = () => {
@@ -153,6 +243,7 @@ $profile_pic = $stmt->fetch_assoc();
   post_job = () => {
     let job_title = $('#job_title');
     let job_description = $('#job_description');
+    let company = $('#company');
     let job_salary = $('#job_salary');
     let admin_id = $('#myID');
 
@@ -164,10 +255,12 @@ $profile_pic = $stmt->fetch_assoc();
         key: "post_job",
         job_title: job_title.val(),
         job_description: job_description.val(),
+        company: company.val(),
         job_salary: job_salary.val(),
         admin_id: admin_id.val()
       }, success: (response) => {
         job_title.val('');
+        company.val('');
         job_description.val('');
         job_salary.val('');
         alert(response)
@@ -443,11 +536,14 @@ $(document).on("change", "#file_add", function() {
     alert('All fields are required');
   }
    
- }
+  
 
- // for open modal
+ }// end onchage photo
 
- account_information = (id) => {
+
+  // for open modal
+
+  account_information = (id) => {
   //  let name = $('#name').val();
   //  let lastname = $('#lastname').val();
   //  let middlename = $('#middle_name').val();
@@ -519,6 +615,60 @@ $(document).on("change", "#file_add", function() {
       }
     })
 
+ }
+
+ open_job_information_modal = (id) => {
+
+  $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "json",
+      data: {
+        key: "get_job_information",
+        id: id
+      }, success: (response) => {
+        // alert(response.sr_code)
+
+        $('#job_information').modal('show');
+        $('#job_title_edited').val(response.title);
+        $('#company_edited').val(response.company);
+        $('#job_description_edited').val(response.description);
+        $('#job_salary_edited').val(response.salary);
+        $('#jobId').val(response.id);
+
+      }
+    })
+ 
+ }
+
+ save_edited_job = () => {
+  let title = $('#job_title_edited').val();
+  let company = $('#company_edited').val();
+  let description = $('#job_description_edited').val();
+  let salary = $('#job_salary_edited').val();
+  let id = $('#jobId').val();
+
+  if(title === '' || company === '') {
+    alert('Title and Company is required!');
+  } else {
+
+  $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "save_edited_job",
+        id: id,
+        title: title,
+        company: company,
+        description: description,
+        salary: salary
+      }, success: (response) => {
+        alert(response)
+       
+      }
+    })
+  }
 
  }
 
