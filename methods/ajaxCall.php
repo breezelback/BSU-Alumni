@@ -25,7 +25,8 @@ if(isset($_POST["key"])) :
             "sr_code" => $_POST['sr_code'],
             "account_password" => $_POST['password'],
             "account_status" => "user",
-            "date_register" => $_POST['currentDate']
+            "date_register" => $_POST['currentDate'],
+            "employment_status" => $_POST['employment_status'],
         );
 
        // exit($userData);
@@ -295,6 +296,43 @@ if(isset($_POST["key"])) :
             exit("Update failed");
         }
     }
+
+    if($key == 'pie_for_job') :
+    
+    $employed = $database->conn->query('SELECT COUNT(id) as total_employed FROM user_information WHERE employment_status = "employed"');
+    $unemployed = $database->conn->query('SELECT COUNT(id) as total_unemployed FROM user_information WHERE employment_status = "unemployed"');
+    
+    $total_employed = $employed->fetch_array();
+    $total_unemployed = $unemployed->fetch_array();
+
+    $dataPie = array(
+        'employed' => $total_employed['total_employed'],
+        'unemployed' => $total_unemployed['total_unemployed']
+    );
+
+    exit(json_encode($dataPie));
+    endif;
+
+
+    if($key == 'pie_for_user'): 
+        $register = $database->conn->query('SELECT COUNT(id) as total_register FROM user_information WHERE account_status = "alumni"');
+        $unregister = $database->conn->query('SELECT COUNT(id) as total_unregister FROM user_information WHERE account_status = "user"');
+        
+        $total_register = $register->fetch_array();
+        $total_unregister = $unregister->fetch_array();
+    
+        $dataPie = array(
+            'register' => $total_register['total_register'],
+            'unregister' => $total_unregister['total_unregister']
+        );
+    
+        exit(json_encode($dataPie));
+    endif;
+
+
+
+    
+       
 
 
 endif;

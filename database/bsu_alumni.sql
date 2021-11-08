@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2021 at 09:06 PM
+-- Generation Time: Nov 08, 2021 at 02:16 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.29
 
@@ -127,6 +127,7 @@ CREATE TABLE `user_information` (
   `sr_code` varchar(50) NOT NULL,
   `account_password` varchar(100) NOT NULL,
   `account_status` varchar(40) NOT NULL,
+  `employment_status` varchar(40) NOT NULL,
   `profile_pic` varchar(100) NOT NULL,
   `date_register` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -135,14 +136,15 @@ CREATE TABLE `user_information` (
 -- Dumping data for table `user_information`
 --
 
-INSERT INTO `user_information` (`id`, `name`, `lastname`, `middle_name`, `email_address`, `department`, `mobile_number`, `course`, `sr_code`, `account_password`, `account_status`, `profile_pic`, `date_register`) VALUES
-(5, 'lance', 'cabiscuelas', 'update', 'ladrera21@gmail.com', 'it', '09307980536', 'ir updated', '', '123', 'alumni', '', ''),
-(6, 'lance', 'cabiscuelas', 'ladrera', 'ladrera21@gmail.com', 'it', '09307980536', 'ghj', '5678', '123', 'alumni', '', ''),
-(7, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'it', '09307980536', 'it', '345', '123', 'user', '', ''),
-(8, 'lance', 'cabiscuelas', 'f', 'ladrera21@gmail.com', 'dfdg', '09307980536', 'dfd', '', 'lance21', 'user', '', ''),
-(9, 'lance', 'ladrera', 'l', 'ladrera21@gmail.com', 'it', '092345678', 'it', '123', '123', 'admin', '9_1633783737844.PNG', ''),
-(10, 'lance', 'cabiscuelas', 'ladrera', '123', 'rew', '09307980536', 'wr', 's29495', '123', 'user', '', '2021-10-29'),
-(11, 'lance', 'cabiscuelas', 'sf', '123', 'sdf', '09307980536', 'sfd', 'sdf', '123', 'user', '', '2021-10-30');
+INSERT INTO `user_information` (`id`, `name`, `lastname`, `middle_name`, `email_address`, `department`, `mobile_number`, `course`, `sr_code`, `account_password`, `account_status`, `employment_status`, `profile_pic`, `date_register`) VALUES
+(5, 'lance', 'cabiscuelas', 'update', 'ladrera21@gmail.com', 'it', '09307980536', 'ir updated', '', '123', 'alumni', '', '', ''),
+(6, 'lance', 'cabiscuelas', 'ladrera', 'ladrera21@gmail.com', 'it', '09307980536', 'ghj', '5678', '123', 'alumni', 'employed', '', ''),
+(7, 'lance', 'cabiscuelas', '', 'ladrera21@gmail.com', 'it', '09307980536', 'it', '345', '123', 'user', '', '', ''),
+(8, 'lance', 'cabiscuelas', 'f', 'ladrera21@gmail.com', 'dfdg', '09307980536', 'dfd', '', 'lance21', 'user', '', '', ''),
+(9, 'lance', 'ladrera', 'l', 'ladrera21@gmail.com', 'it', '092345678', 'it', '123', '123', 'admin', 'unemployed', '9_1633783737844.PNG', ''),
+(10, 'lance', 'cabiscuelas', 'ladrera', '123', 'rew', '09307980536', 'wr', 's29495', '123', 'user', 'employed', '', '2021-10-29'),
+(11, 'lance', 'cabiscuelas', 'sf', '123', 'sdf', '09307980536', 'sfd', 'sdf', '123', 'user', 'unemployed', '', '2021-10-30'),
+(15, 'lance', 'cabiscuelas', 'ladrera', '123', 'it', '09307980536', 'it', 'fds', '123', 'user', 'employed', '', '2021-11-3');
 
 --
 -- Indexes for dumped tables
@@ -210,7 +212,7 @@ ALTER TABLE `sr_request`
 -- AUTO_INCREMENT for table `user_information`
 --
 ALTER TABLE `user_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

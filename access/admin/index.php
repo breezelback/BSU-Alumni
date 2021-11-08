@@ -194,27 +194,77 @@ new Chart(ctx, {
     }
 })
 
+
+
+
 var pieConfig = document.getElementById('pie_chart');
+pieConfig.height = 250;
 
-new Chart(pieConfig, {
-  type: 'pie',
-  data: {
-    labels: ["Employed", "Unemployed"],
-    datasets: [{
-      backgroundColor: [
-        "#2ecc71",
-        "#95a5a6",
-      ],
-      data: [12, 19]
-    }]
-  },
-  option : {
-    bezierCurve : false,
-    // onAnimationComplete: done 
-  }
-});
 
-  }) // end of onready
+$.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "json",
+      data: {
+        key: "pie_for_job",
+      }, success: (response) => {
+
+        new Chart(pieConfig, {
+        type: 'pie',
+        data: {
+          labels: ["Employed", "Unemployed"],
+          datasets: [{
+            backgroundColor: [
+              "#2ecc71",
+              "#95a5a6",
+            ],
+            data: [response.employed, response.unemployed]
+          }]
+        },
+        option : {
+          bezierCurve : false,
+          // onAnimationComplete: done 
+        }
+      });
+      }
+})
+
+
+
+
+var pie_for_register_user = document.getElementById('pie_chart2');
+pie_for_register_user.height = 250;
+
+$.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "json",
+      data: {
+        key: "pie_for_user",
+      }, success: (response) => {
+        // console.log(response)
+        new Chart(pie_for_register_user, {
+        type: 'pie',
+        data: {
+          labels: ["Pending", "Registered"],
+          datasets: [{
+            backgroundColor: [
+              "#2ecc71",
+              "#95a5a6",
+            ],
+            data: [response.unregister, response.register]
+          }]
+        },
+        option : {
+          bezierCurve : false,
+          // onAnimationComplete: done 
+        }
+      });
+      }
+})
+
+  
+}) // end of onready
 
   // this is for publish forum page
   publishForum = () => {

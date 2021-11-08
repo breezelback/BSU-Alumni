@@ -130,6 +130,22 @@
                     	</div>
                     </div>
 
+                    <div class="row">
+                    	<div class="col-md-6">
+								<!-- additional column if need to add field -->
+                    	</div>
+                    	<div class="col-md-6">
+						<div class="form-group">
+							<!-- <label for="cars">Choose a car:</label> -->
+							<select id="employment_status" name="employment_status" class="form-control" >
+								<option selected disabled>Employment Status</option>
+								<option value="employed">Employed</option>
+								<option value="unemployed">Unemployed</option>
+							</select>
+		                    </div>
+                    	</div>
+                    </div>
+
                     <button class="btn btn-main" onclick="register()" name="submit" type="submit">Send Message</button>
 
                 </form>
@@ -261,7 +277,11 @@
 		let course = $('#course');
 		let sr_code = $('#sr_code');
 		let password = $('#password');
+		let employment_status = $("#employment_status");
 
+	if(firstname.val() != '' || lastname.val() != '' || email.val() != '' || department.val() != '' || employment_status.val() != '' || password.val() != '') {
+	
+		// alert("firstname : "+firstname.val());
 		$.ajax({
 			url: './methods/ajaxCall.php',
 			method: 'post',
@@ -278,11 +298,16 @@
 				sr_code: sr_code.val(),
 				password: password.val(),
 				course: course.val(),
+				employment_status: employment_status.val(),
 				currentDate: currentDate,
 			}, success: (response) => {
 				alert(response)
 			}
 		})
+
+	} else {
+		alert("All fields are required!");
+	}
 		
 	  }
 
