@@ -13,7 +13,7 @@ $stmt = $database->conn->query($query);
 
 $profile_pic = $stmt->fetch_assoc();
 
-// echo $profile_pic['profile_pic'];
+$profile_pic['profile_pic'];
 
 ?>
 
@@ -60,6 +60,9 @@ $profile_pic = $stmt->fetch_assoc();
           </li> -->
           <li>
             <a href="index.php?page=allusers"><span class="fa fa-users mr-3"></span> All Users</a>
+          </li>
+          <li>
+            <a href="index.php?page=alumni-tracking"><span class="fa fa-user mr-3"></span> Alumni Tracking</a>
           </li>
           <li>
             <a href="index.php?page=pendingusers"><span class="fa fa-lock mr-3"></span> Pending Accounts</a>
@@ -125,6 +128,7 @@ $profile_pic = $stmt->fetch_assoc();
   // initialize for all the pages the script is here
   $(document).ready(() => {
     $('#alluser_table').DataTable();
+    $('#tracking_table').DataTable();
     $('#pending_user').DataTable();
     $('#job_table').DataTable();
 
@@ -497,6 +501,42 @@ delete_pending = (id) => {
   }
 }
 
+// for open modal
+
+view_alumni_tracking = (id) => {
+    
+  $.ajax({
+    url: "./../../methods/ajaxCall.php",
+    method: "post",
+    dataType: "json",
+    data: {
+      key: "get_alumni_information",
+      id: id
+    }, success: (response) => {
+      alert(response)
+
+      $('#view_alumni_tracking').modal('show');
+      $('#degree').val(response.degree);
+      $('#program').val(response.program);
+      $('#year_graduated').val(response.year_graduated);
+      $('#masters_program').val(response.masters_program);
+      $('#masters_school').val(response.masters_school);
+      $('#name').val(response.name);
+      $('#age').val(response.age);
+      $('#gender').val(response.gender);
+      $('#civil_status').val(response.civil_status);
+      $('#address').val(response.address);
+      $('#is_employed').val(response.is_employed);
+      $('#working_status').val(response.working_status);
+      $('#company_name').val(response.company_name);
+      $('#position').val(response.position);
+      $('#company_address').val(response.company_address);
+      $('#employment_status').val(response.employment_status);
+      $('#user_id').val(response.id);
+    }
+  })
+}
+
 // this is for api
 $(document).ready(() => {
   fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -667,6 +707,8 @@ $(document).on("change", "#file_add", function() {
 
  }
 
+
+
  open_job_information_modal = (id) => {
 
   $.ajax({
@@ -721,5 +763,11 @@ $(document).on("change", "#file_add", function() {
   }
 
  }
+
+
+
+
+
+
 
 </script>

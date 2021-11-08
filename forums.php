@@ -63,7 +63,13 @@
 						<div class="blog-item-content bg-white p-5">
 							<div class="blog-item-meta bg-gray py-1 px-2">
 								<!-- <span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>Creativity</span> -->
-								<span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>5 Comments</span>
+								<span class="text-muted text-capitalize mr-3">
+                  <?php 
+                  $execCount = $database->conn->query(' SELECT COUNT(`id`) AS total FROM forum_comments WHERE `forum_id` = '.$row['id'].' ');
+                  $result = $execCount->fetch_assoc();
+                   ?>
+                  <i class="ti-comment mr-2"></i><?php echo $result['total']; ?> Comments
+                </span>
 								<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> <?php echo $row['date_created']; ?></span>
 							</div> 
 

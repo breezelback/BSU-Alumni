@@ -146,7 +146,7 @@
                     	</div>
                     </div>
 
-                    <button class="btn btn-main" onclick="register()" name="submit" type="submit">Send Message</button>
+                    <button class="btn btn-main" onclick="register()" name="submit" type="submit">Submit</button>
 
                 </form>
             </div>
@@ -266,6 +266,7 @@
 	   register = () => {
 		var today = new Date();
         var currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var srCode = $('#sr_code').val();
 
 		let firstname = $('#firstname');
 		let lastname = $('#lastname');
@@ -279,7 +280,11 @@
 		let password = $('#password');
 		let employment_status = $("#employment_status");
 
-	if(firstname.val() != '' || lastname.val() != '' || email.val() != '' || department.val() != '' || employment_status.val() != '' || password.val() != '') {
+	if( (firstname.val() == '') || (lastname.val() == '') || (email.val() == '') || (department.val() == '') || (employment_status.val() == '') || (password.val() == '') || (middlename.val() == '') || (mobile.val() == '') || (address.val() == '') || (course.val() == '') || (sr_code.val() == '') ) {
+
+		alert("All fields are required!");
+
+	} else {
 	
 		// alert("firstname : "+firstname.val());
 		$.ajax({
@@ -302,11 +307,9 @@
 				currentDate: currentDate,
 			}, success: (response) => {
 				alert(response)
+				window.location = ' alumni-tracking.php?sr_code='+srCode;
 			}
 		})
-
-	} else {
-		alert("All fields are required!");
 	}
 		
 	  }

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2021 at 02:16 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.29
+-- Generation Time: Nov 08, 2021 at 09:24 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.3.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -112,6 +111,35 @@ CREATE TABLE `sr_request` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_tracking`
+--
+
+CREATE TABLE `tbl_tracking` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `degree` varchar(255) NOT NULL,
+  `program` varchar(255) NOT NULL,
+  `year_graduated` varchar(255) NOT NULL,
+  `masters_program` varchar(255) NOT NULL,
+  `masters_school` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `age` varchar(255) NOT NULL,
+  `gender` varchar(255) NOT NULL,
+  `civil_status` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `is_employed` varchar(255) NOT NULL,
+  `working_status` varchar(255) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `company_address` varchar(255) NOT NULL,
+  `employment_status` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
+  `date_uploaded` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_information`
 --
 
@@ -175,6 +203,12 @@ ALTER TABLE `sr_request`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_tracking`
+--
+ALTER TABLE `tbl_tracking`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_information`
 --
 ALTER TABLE `user_information`
@@ -209,10 +243,16 @@ ALTER TABLE `sr_request`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tbl_tracking`
+--
+ALTER TABLE `tbl_tracking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `user_information`
 --
 ALTER TABLE `user_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

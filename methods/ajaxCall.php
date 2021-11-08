@@ -63,7 +63,8 @@ if(isset($_POST["key"])) :
         $fullname = $row['name']. " " .$row['lastname'];
 
         if(filter_var($row['email_address'], FILTER_VALIDATE_EMAIL)) {
-            // $updateQuery = $database->conn->query("UPDATE user_information SET account_status='$status' WHERE id = $id");
+            $updateQuery = $database->conn->query("UPDATE user_information SET account_status='$status' WHERE id = $id");
+            $database->conn->query($updateQuery);
            //exit("UPDATE user_information SET account_status = '$status' WHERE id = $id");
             // if($updateQuery) {
 
@@ -234,6 +235,43 @@ if(isset($_POST["key"])) :
             exit('Queries not executed properly');
         }
     endif;
+
+    if($key == 'get_alumni_information') :
+        $id = $_POST['id'];
+
+        $sql = $database->conn->query("SELECT `id`, `user_id`, `degree`, `program`, `year_graduated`, `masters_program`, `masters_school`, `name`, `age`, `gender`, `civil_status`, `address`, `is_employed`, `working_status`, `company_name`, `position`, `company_address`, `employment_status`, `status`, `date_uploaded` FROM `tbl_tracking` WHERE id = $id ");
+        die();
+        // if($row = $sql->fetch_array()) {
+        //     $data = array(
+        //         'user_id' => $row['user_id'],
+        //         'degree' => $row['degree'],
+        //         'program' => $row['program'],
+        //         'year_graduated' => $row['year_graduated'],
+        //         'masters_program' => $row['masters_program'],
+        //         'masters_school' => $row['masters_school'],
+        //         'name' => $row['name'],
+        //         'age' => $row['age'],
+        //         'gender' => $row['gender'],
+        //         'civil_status' => $row['civil_status'],
+        //         'address' => $row['address'],
+        //         'is_employed' => $row['is_employed'],
+        //         'working_status' => $row['working_status'],
+        //         'company_name' => $row['company_name'],
+        //         'position' => $row['position'],
+        //         'company_address' => $row['company_address'],
+        //         'employment_status' => $row['employment_status'],
+        //         'status' => $row['status'],
+        //         'date_uploaded' => $row['date_uploaded']
+        //         'id' => $id
+        //     );
+
+        //     exit(json_encode($data));
+        // } else {
+        //     exit('Queries not executed properly');
+        // }
+    endif;
+
+
 
     if($key == 'get_job_information') :
         $id = $_POST['id'];

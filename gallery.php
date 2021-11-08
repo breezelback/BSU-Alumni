@@ -64,7 +64,7 @@
 			<div class="col-lg-4 col-md-6">
 				<div class="portflio-item position-relative mb-4">
 					<a href="access/admin/gallery/<?php echo $row['image_name']; ?>" class="popup-gallery">
-						<img src="access/admin/gallery/<?php echo $row['image_name']; ?>" alt="" class="img-fluid w-100" style="height: 170px;">
+						<img src="access/admin/gallery/<?php echo $row['image_name']; ?>" alt="" class="img-fluid w-100" style="height: 370px;">
 
 						<i class="ti-plus overlay-item"></i>
 						<div class="portfolio-item-content">
