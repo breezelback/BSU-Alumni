@@ -200,7 +200,54 @@ new Chart(ctx, {
 
 
 
+// this chart is for degree chart
 
+var chartDegree = document.getElementById('chart_for_degree').getContext('2d');
+
+
+$.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "json",
+      data: {
+        key: "graph_for_degree",
+      }, success: (response) => {
+        console.log(response);
+  new Chart(chartDegree, {
+    // The type of chart we want to create
+    type: 'bar',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+
+    // The data for our dataset
+    data: {
+        labels: ['Master', 'PhD', 'MBA', 'Executive Education', 'Undergraduate', 'Other'],
+        datasets: [{
+            label: 'Total ',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [response.master, response.phd, response.mba, response.executive, response.undergraduate, response.other],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+            ],
+        }]
+        },
+        options:{
+          legend: {
+          display: false
+        }  
+        }
+    });
+
+      }
+})
+
+
+// pie for employment
 var pieConfig = document.getElementById('pie_chart');
 pieConfig.height = 250;
 
@@ -501,41 +548,7 @@ delete_pending = (id) => {
   }
 }
 
-// for open modal
 
-view_alumni_tracking = (id) => {
-    
-  $.ajax({
-    url: "./../../methods/ajaxCall.php",
-    method: "post",
-    dataType: "json",
-    data: {
-      key: "get_alumni_information",
-      id: id
-    }, success: (response) => {
-      alert(response)
-
-      $('#view_alumni_tracking').modal('show');
-      $('#degree').val(response.degree);
-      $('#program').val(response.program);
-      $('#year_graduated').val(response.year_graduated);
-      $('#masters_program').val(response.masters_program);
-      $('#masters_school').val(response.masters_school);
-      $('#name').val(response.name);
-      $('#age').val(response.age);
-      $('#gender').val(response.gender);
-      $('#civil_status').val(response.civil_status);
-      $('#address').val(response.address);
-      $('#is_employed').val(response.is_employed);
-      $('#working_status').val(response.working_status);
-      $('#company_name').val(response.company_name);
-      $('#position').val(response.position);
-      $('#company_address').val(response.company_address);
-      $('#employment_status').val(response.employment_status);
-      $('#user_id').val(response.id);
-    }
-  })
-}
 
 // this is for api
 $(document).ready(() => {
@@ -764,8 +777,65 @@ $(document).on("change", "#file_add", function() {
 
  }
 
+// for open modal
+
+view_alumni_tracking = (id) => {
+
+  $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "json",
+      data: {
+        key: "get_alumni_information",
+        id: id
+      }, success: (response) => {
+        console.log(response);
+        $('#view_alumni_tracking').modal('show');
+        $('#degree').val(response.degree);
+        $('#program').val(response.program);
+        $('#year_graduated').val(response.year_graduated);
+        $('#masters_program').val(response.masters_program);
+        $('#masters_school').val(response.masters_school);
+        $('#name').val(response.name);
+        $('#age').val(response.age);
+        $('#gender').val(response.gender);
+        $('#civil_status').val(response.civil_status);
+        $('#address').val(response.address);
+        $('#is_employed').val(response.is_employed);
+        $('#working_status').val(response.working_status);
+        $('#company_name').val(response.company_name);
+        $('#position').val(response.position);
+        $('#company_address').val(response.company_address);
+        $('#employment_status').val(response.employment_status);
+        $('#date_uploaded').val(response.date_uploaded);
+        $('#user_id').val(response.id);
+      }
+    })
+
+  } // end of function
 
 
+  delete_alumni_tracking = (id) => {
+    if(confirm("Are you sure?"))
+  {
+
+    $.ajax({
+      url: "./../../methods/ajaxCall.php",
+      method: "post",
+      dataType: "text",
+      data: {
+        key: "del_tracking",
+        id: id
+      }, success: (response) => {
+        alert(response);
+        $("#tracking_"+id).parent().remove();
+      // load_image_data();
+      }
+    })
+
+  }
+
+  }
 
 
 

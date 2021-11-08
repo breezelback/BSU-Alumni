@@ -15,7 +15,7 @@ $sql = $database->conn->query(" SELECT `id`, `user_id`, `degree`, `program`, `ye
   <tbody>
     <?php while($row = $sql->fetch_array()): ?>
         <tr>
-        <td scope="row" id="<?php echo "user_".$row['id']; ?>"><?php echo $row["name"]; ?></td>
+        <td scope="row" id="<?php echo "tracking_".$row['id']; ?>"><?php echo $row["name"]; ?></td>
         <td><?php echo $row["degree"]; ?></td>
         <td><?php echo strtoupper($row["program"]); ?></td>
         <td>
