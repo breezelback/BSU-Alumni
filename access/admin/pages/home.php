@@ -71,7 +71,16 @@ $total_job = $job_count->fetch_array();
 </div>
 
 </div>
-
+<br>
+<div class="container">
+<h2 class="text-center">Degree</h2>
+<div class="row">
+  <div class="col-md-12">
+    <canvas id="chart_for_degree"></canvas>
+  </div>
+</div>
+</div>
+<br>
 <div class="container">
 <div class="row" style="margin-top:  ;">
   <div class="col-lg-6">

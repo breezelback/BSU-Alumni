@@ -235,40 +235,43 @@ if(isset($_POST["key"])) :
             exit('Queries not executed properly');
         }
     endif;
+    
 
     if($key == 'get_alumni_information') :
         $id = $_POST['id'];
 
-        $sql = $database->conn->query("SELECT `id`, `user_id`, `degree`, `program`, `year_graduated`, `masters_program`, `masters_school`, `name`, `age`, `gender`, `civil_status`, `address`, `is_employed`, `working_status`, `company_name`, `position`, `company_address`, `employment_status`, `status`, `date_uploaded` FROM `tbl_tracking` WHERE id = $id ");
-        die();
-        // if($row = $sql->fetch_array()) {
-        //     $data = array(
-        //         'user_id' => $row['user_id'],
-        //         'degree' => $row['degree'],
-        //         'program' => $row['program'],
-        //         'year_graduated' => $row['year_graduated'],
-        //         'masters_program' => $row['masters_program'],
-        //         'masters_school' => $row['masters_school'],
-        //         'name' => $row['name'],
-        //         'age' => $row['age'],
-        //         'gender' => $row['gender'],
-        //         'civil_status' => $row['civil_status'],
-        //         'address' => $row['address'],
-        //         'is_employed' => $row['is_employed'],
-        //         'working_status' => $row['working_status'],
-        //         'company_name' => $row['company_name'],
-        //         'position' => $row['position'],
-        //         'company_address' => $row['company_address'],
-        //         'employment_status' => $row['employment_status'],
-        //         'status' => $row['status'],
-        //         'date_uploaded' => $row['date_uploaded']
-        //         'id' => $id
-        //     );
+       $sql = $database->conn->query("SELECT * FROM tbl_tracking WHERE id = $id");
+        if($row = $sql->fetch_array()) {
+            $data = array(
+                'user_id' => $row['user_id'],
+                'degree' => $row['degree'],
+                'program' => $row['program'],
+                'year_graduated' => $row['year_graduated'],
+                'masters_program' => $row['masters_program'],
+                'masters_school' => $row['masters_school'],
+                'name' => $row['name'],
+                'age' => $row['age'],
+                'gender' => $row['gender'],
+                'civil_status' => $row['civil_status'],
+                'address' => $row['address'],
+                'is_employed' => $row['is_employed'],
+                'working_status' => $row['working_status'],
+                'company_name' => $row['company_name'],
+                'position' => $row['position'],
+                'company_address' => $row['company_address'],
+                'employment_status' => $row['employment_status'],
+                'status' => $row['status'],
+                'date_uploaded' => $row['date_uploaded'],
+                'id' => $id
+            );
 
-        //     exit(json_encode($data));
-        // } else {
-        //     exit('Queries not executed properly');
-        // }
+            exit(json_encode($data));
+        } else {
+            exit('Queries not executed properly');
+
+        }
+        // exit($test);
+
     endif;
 
 
@@ -367,13 +370,53 @@ if(isset($_POST["key"])) :
         exit(json_encode($dataPie));
     endif;
 
+    if($key == 'graph_for_degree') : 
+         $master = $database->conn->query('SELECT COUNT(id) as total_master FROM tbl_tracking WHERE degree = "masters"');
+        $phd = $database->conn->query('SELECT COUNT(id) as total_phd FROM tbl_tracking WHERE degree = "phd"');
+        $mba = $database->conn->query('SELECT COUNT(id) as total_mba FROM tbl_tracking WHERE degree = "mba"');
+        $executive = $database->conn->query('SELECT COUNT(id) as total_ex FROM tbl_tracking WHERE degree = "executive"');
+        $undergraduate = $database->conn->query('SELECT COUNT(id) as total_undergrad FROM tbl_tracking WHERE degree = "undergraduate"');
+        $other = $database->conn->query('SELECT COUNT(id) as total_other FROM tbl_tracking WHERE degree = "other"');
 
 
-    
-       
+        $total_master = $master->fetch_array();
+        $total_phd = $phd->fetch_array();
+        $total_mba = $mba->fetch_array();
+        $total_executive = $executive->fetch_array();
+        $total_undergraduate = $undergraduate->fetch_array();
+        $total_other = $other->fetch_array();
+
+        $dataPie = array(
+            'master' => $total_master['total_master'],
+            'phd' => $total_phd['total_phd'],
+            'mba' => $total_mba['total_mba'],
+            'executive' => $total_executive['total_ex'],
+            'undergraduate' => $total_undergraduate['total_undergrad'],
+            'other' => $total_other['total_other'],
+        );
+
+        // exit($total_master['total_master']);
+       exit(json_encode($dataPie));
+
+    endif;
 
 
-endif;
+    if($key == 'del_tracking') :
+
+        $id = $_POST['id'];
+
+        $sql = "DELETE FROM tbl_tracking WHERE id = $id";
+        $query = $database->conn->query($sql);
+        if($query) {
+            exit('Deleted');
+        } else {
+            exit($sql);
+        }
+
+    endif;
+
+
+endif; // end of all
 
 if(isset($_GET['get_key'])) :
 
