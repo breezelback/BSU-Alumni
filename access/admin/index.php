@@ -838,6 +838,14 @@ view_alumni_tracking = (id) => {
   }
 
 
+  print_alumni_tracking = () => {
+    window.open("./forms/alumni_tracking.php");
+  }
+
+  print_per_tracking = (id) => {
+    window.open("./forms/print_per_tracking.php?id="+id+"");
+  }
+
 
 
 </script>
