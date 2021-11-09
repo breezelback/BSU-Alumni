@@ -3,6 +3,11 @@ $sql = $database->conn->query(" SELECT `id`, `user_id`, `degree`, `program`, `ye
 
 ?>
 <div class="container-fluid">
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary float-right" onclick="print_alumni_tracking()">Print all alumni</button><br><br>
+    </div>
+</div>
 <table class="table" id="tracking_table">
   <thead class="thead-light">
     <tr>
@@ -21,6 +26,7 @@ $sql = $database->conn->query(" SELECT `id`, `user_id`, `degree`, `program`, `ye
         <td>
             <button class="btn btn-primary btn-sm" onclick="view_alumni_tracking(<?php echo $row['id']; ?>)"><i class="fa fa-eye" aria-hidden="true"></i></button>
             <button class="btn btn-danger btn-sm" onclick="delete_alumni_tracking(<?php echo $row['id']; ?>)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button class="btn btn-danger btn-sm" onclick="print_per_tracking(<?php echo $row['id']; ?>)">print</button>
         </td>
         </tr>
     <?php endwhile; ?>
