@@ -97,7 +97,8 @@ if(isset($_POST["key"])) :
             "address" => $_POST['address'],
             "department" => $_POST['department'],
             "course" => $_POST['course'],
-            "date_request" => $now->format('j-m-Y')
+            "date_request" => $now->format('j-m-Y'),
+            "year_graduated" => $_POST['year_graduated']
         );
 
 

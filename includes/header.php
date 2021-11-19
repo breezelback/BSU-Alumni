@@ -26,6 +26,7 @@ $database = new Database;
 				   <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
 				   <li class="nav-item"><a class="nav-link" href="forums.php">Forum</a></li>
 				   <li class="nav-item"><a class="nav-link" href="jobs.php">Jobs</a></li>
+				   <li class="nav-item"><a class="nav-link" href="alumni.php">Alumni</a></li>
 				<?php } ?>
 			   <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
 			</ul>
@@ -39,6 +40,7 @@ $database = new Database;
 					  </button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-cog"></i> Personal Information</a>
+					    <a class="dropdown-item" href="update-alumni-tracking.php"><i class="fa fa-users-cog"></i> Tracking Information</a>
 					    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPassword"><i class="fa fa-lock"></i> Update Password</a>
 					    <a class="dropdown-item" href="methods/logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a>
 					  </div>

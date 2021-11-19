@@ -94,7 +94,7 @@ $this->cell(50, 10, $row['year_graduated'], 0, 0, 'R');
 $this->cell(50, 10, "", 0, 1);
 $this->SetFont('Arial','B',15);
 $this->cell(60, 10, "Master program", 0, 0, 'C');
-$this->cell(60, 10, "Eployed", 0, 1, 'C');
+$this->cell(60, 10, "Employed", 0, 1, 'C');
 
 // value here
 $this->SetFont('Arial','',10);

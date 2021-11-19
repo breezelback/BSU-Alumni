@@ -9,6 +9,9 @@ $sql = $database->conn->query("SELECT * FROM sr_request ORDER BY id DESC");
         <th scope="col">Fullname</th>
         <th scope="col">Department</th>
         <th scope="col">Course</th>
+        <th scope="col">Address</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Year Graduated</th>
         <th scope="col">Operations</th>
       </tr>
     </thead>
@@ -18,11 +21,16 @@ $sql = $database->conn->query("SELECT * FROM sr_request ORDER BY id DESC");
           <th scope="row"><?php echo $row["name"]. " " .$row["lastname"]; ?></th>
           <td><?php echo $row["department"]; ?></td>
           <td><?php echo $row["course"]; ?></td>
+          <td><?php echo $row["address"]; ?></td>
+          <td><?php echo $row["mobile_no"]; ?></td>
+          <td><?php echo $row["year_graduated"]; ?></td>
   
           <td>
+            <center>
               <button class="btn btn-primary btn-sm" onclick="modalForSrForm(<?php echo $row['id'] ?>)">Send SR code</button>
-              <button class="btn btn-success btn-sm">View</button>
-              <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <!-- <button class="btn btn-success btn-sm">View</button> -->
+              <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
+            </center>
           </td>
           </tr>
       <?php endwhile; ?>

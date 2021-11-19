@@ -83,6 +83,9 @@ $profile_pic['profile_pic'];
             <a href="index.php?page=srrequest"><span class="fa fa-id-card-o mr-3"></span> SR Request</a>
           </li>
           <li>
+            <a href="index.php?page=contactus"><span class="fa fa-address-card mr-3"></span> Contact US</a>
+          </li>
+          <li>
             <a href="index.php?page=settings"><span class="fa fa-cog mr-3"></span> Account Settings</a>
           </li>
           <li>
@@ -131,6 +134,7 @@ $profile_pic['profile_pic'];
     $('#tracking_table').DataTable();
     $('#pending_user').DataTable();
     $('#job_table').DataTable();
+    $('#contact_us').DataTable();
 
     
     $.ajax({

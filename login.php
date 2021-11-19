@@ -48,6 +48,8 @@
 				</div>
 				
 				<input type="submit" class="btn btn-primary" value="Continue">
+				<br>
+				<span class="float-right mt-2"><i><u><a href="password-reset.php" style="color:white;">Forgot Password</a></u></i></span>
 		</form>
 
         </div>
@@ -68,7 +70,7 @@
                     <div class="row">
                     	<div class="col-md-4">
 		                    <div class="form-group">
-		                        <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Lastame">
+		                        <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Lastname">
 		                    </div>
                     	</div>
                     	<div class="col-md-4">
@@ -86,7 +88,7 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="email" id="email" type="text" class="form-control" placeholder="Email Address">
+		                        <input name="email" id="email" type="email" class="form-control" placeholder="Email Address">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
@@ -107,12 +109,26 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="department" id="department" type="text" class="form-control" placeholder="Department">
+		                        <!-- <input name="department" id="department" type="text" class="form-control" placeholder="Department"> -->
+
+								Department:
+								<select class="form-control" id="department" name="department">
+									<option value="cit">COLLEGE OF INDUSTRIAL TECHNOLOGY</option>
+									<option value="cecs">COLLEGE OF ENGINEERING</option>
+									<option value="cics">COLLEGE OF INFORMATICS AND COMPUTING SCIENCES</option>
+									<option value="cte">COLLEGE OF TEACHER EDUCATION</option>
+									<option value="cas">COLLEGE OF ARTS AND SCIENCES</option>
+									<option value="cab">COLLEGE OF ACCOUNTANCY, BUSINESS, ECONOMICS AND INTERNATIONAL HOSPITALITY MANAGEMENT</option>
+								</select>
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="course" id="course" type="text" class="form-control" placeholder="Course">
+		                        <!-- <input name="course" id="course" type="text" class="form-control" placeholder="Course"> -->
+								Course:
+								<select class="form-control" id="course" name="course">
+								</select>
+
 		                    </div>
                     	</div>
                     </div> 
@@ -177,7 +193,7 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="sr_email" id="sr_email" type="text" class="form-control" placeholder="Email Address">
+		                        <input name="sr_email" id="sr_email" type="email" class="form-control" placeholder="Email Address">
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
@@ -188,9 +204,14 @@
                     </div>
 
                     <div class="row">
-                    	<div class="col-md-12">
+                    	<div class="col-md-8">
 		                    <div class="form-group">
 		                        <input name="sr_address" id="sr_address" type="text" class="form-control" placeholder="Address">
+		                    </div>
+                    	</div>
+                    	<div class="col-md-4">
+		                    <div class="form-group">
+		                        <input name="year_graduated" id="year_graduated" type="number" class="form-control" placeholder="Year Graduated">
 		                    </div>
                     	</div>
                     </div>
@@ -198,12 +219,24 @@
                     <div class="row">
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="sr_department" id="sr_department" type="text" class="form-control" placeholder="Department">
+		                        <!-- <input name="sr_department" id="sr_department" type="text" class="form-control" placeholder="Department"> -->
+								Department:
+								<select class="form-control" id="sr_department" name="sr_department">
+									<option value="cit">COLLEGE OF INDUSTRIAL TECHNOLOGY</option>
+									<option value="cecs">COLLEGE OF ENGINEERING</option>
+									<option value="cics">COLLEGE OF INFORMATICS AND COMPUTING SCIENCES</option>
+									<option value="cte">COLLEGE OF TEACHER EDUCATION</option>
+									<option value="cas">COLLEGE OF ARTS AND SCIENCES</option>
+									<option value="cab">COLLEGE OF ACCOUNTANCY, BUSINESS, ECONOMICS AND INTERNATIONAL HOSPITALITY MANAGEMENT</option>
+								</select>
 		                    </div>
                     	</div>
                     	<div class="col-md-6">
 		                    <div class="form-group">
-		                        <input name="sr_course" id="sr_course" type="text" class="form-control" placeholder="Course">
+		                        <!-- <input name="sr_course" id="sr_course" type="text" class="form-control" placeholder="Course"> -->
+								Course:
+								<select class="form-control" id="sr_course" name="sr_course">
+								</select>
 		                    </div>
                     	</div>
                     </div> 
@@ -233,6 +266,11 @@
   </html>
   <script>
 
+	var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+	optionCit();
+	sr_optionCit();
+
+
 	  request_sr = () => {
 		let firstname = $('#sr_fname');
 		let lastname = $('#sr_lastname');
@@ -242,25 +280,45 @@
 		let address = $('#sr_address');
 		let department = $('#sr_department');
 		let course = $('#sr_course');
+		let year_graduated = $('#year_graduated');
+
+
 		
-		$.ajax({
-			url: './methods/ajaxCall.php',
-			method: 'post',
-			dataType: 'text',
-			data: {
-				key: 'request_srcode',
-				firstname: firstname.val(),
-				lastname: lastname.val(),
-				middlename: middlename.val(),
-				email: email.val(),
-				mobile: mobile.val(),
-				address: address.val(),
-				department: department.val(),
-				course: course.val()
-			}, success: (response) => {
-				alert(response)
-			}
-		})
+		if( (firstname.val() == '') || (lastname.val() == '') || (email.val() == '') || (department.val() == '') || (middlename.val() == '') || (mobile.val() == '') || (address.val() == '') || (course.val() == '') || (year_graduated.val() == '') ) 
+		{
+
+			alert("All fields are required!");
+		}
+		else if (!testEmail.test(email.val()))
+		{
+			
+			alert("Please check email format!");	
+
+		}
+		else
+		{
+
+			$.ajax({
+				url: './methods/ajaxCall.php',
+				method: 'post',
+				dataType: 'text',
+				data: {
+					key: 'request_srcode',
+					firstname: firstname.val(),
+					lastname: lastname.val(),
+					middlename: middlename.val(),
+					email: email.val(),
+					mobile: mobile.val(),
+					address: address.val(),
+					department: department.val(),
+					course: course.val(),
+					year_graduated: year_graduated.val()
+				}, success: (response) => {
+					alert(response)
+				}
+			})	
+		}
+
 	  }
 
 	   register = () => {
@@ -283,6 +341,11 @@
 	if( (firstname.val() == '') || (lastname.val() == '') || (email.val() == '') || (department.val() == '') || (employment_status.val() == '') || (password.val() == '') || (middlename.val() == '') || (mobile.val() == '') || (address.val() == '') || (course.val() == '') || (sr_code.val() == '') ) {
 
 		alert("All fields are required!");
+	}
+	else if (!testEmail.test(email.val()))
+	{
+		
+		alert("Please check email format!");	
 
 	} else {
 	
@@ -313,6 +376,199 @@
 	}
 		
 	  }
+
+
+
+	  $('#department').on('change',function(){
+			var departmentValue = $(this).val();
+			// alert(departmentValue);
+		  	if (departmentValue == 'cit' ) 
+		  	{
+		  		optionCit();
+		    }
+		  	else if (departmentValue == 'cecs' ) 
+		  	{
+		  		optionCecs();
+		    }
+		  	else if (departmentValue == 'cte' ) 
+		  	{
+		  		optionCte();
+		    }
+		  	else if (departmentValue == 'cas' ) 
+		  	{
+		  		optionCas();
+		    }
+		  	else if (departmentValue == 'cab' ) 
+		  	{
+		  		optionCab();
+		    }
+		  	else if (departmentValue == 'cics' ) 
+		  	{
+		  		optionCics();
+		    }
+		});
+
+
+	// $('#course').on('change',function(){
+	// 	var courseValue = $(this).val();
+	// 	alert(courseValue);
+	// });
+
+
+	function optionCit()
+	{
+		$('#course').find('option').remove();
+		$("#course").append(new Option("AUTOMOTIVE TECHNOLOGY", "AUTOMOTIVE TECHNOLOGY"));
+		$("#course").append(new Option("CIVIL TECHNOLOGY", "CIVIL TECHNOLOGY"));
+		$("#course").append(new Option("COMPUTER TECHNOLOGY", "COMPUTER TECHNOLOGY"));
+		$("#course").append(new Option("DRAFTING TECHNOLOGY", "DRAFTING TECHNOLOGY"));
+		$("#course").append(new Option("ELECTRICAL TECHNOLOGY", "ELECTRICAL TECHNOLOGY"));
+		$("#course").append(new Option("ELECTRONICS TECHNOLOGY", "ELECTRONICS TECHNOLOGY"));
+		$("#course").append(new Option("FOOD TECHNOLOGY", "FOOD TECHNOLOGY"));
+		$("#course").append(new Option("MECHANICAL TECHNOLOGY ", "MECHANICAL TECHNOLOGY "));
+		$("#course").append(new Option("MECHATRONICS TECHNOLOGY", "MECHATRONICS TECHNOLOGY"));
+
+	}
+	function optionCecs()
+	{
+		$('#course').find('option').remove();
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING", "BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN MECHATRONICS ENGINEERING", "BACHELOR OF SCIENCE IN MECHATRONICS ENGINEERING"));
+	}
+	function optionCas()
+	{
+		$('#course').find('option').remove();
+		$("#course").append(new Option("BS CRIMINOLOGY", "BS CRIMINOLOGY"));
+		$("#course").append(new Option("BS PSYCHOLOGY", "BS PSYCHOLOGY"));
+	}
+	function optionCte()
+	{
+		$('#course').find('option').remove();
+		$("#course").append(new Option("BACHELOR OF ELEMENTARY EDUCATION", "BACHELOR OF ELEMENTARY EDUCATION"));
+		$("#course").append(new Option("BACHELOR OF PHYSICAL EDUCATION", "BACHELOR OF PHYSICAL EDUCATION"));
+		$("#course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN ENGLISH", "BACHELOR OF SECONDARY EDUCATION MAJOR IN ENGLISH"));
+		$("#course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN FILIPINO", "BACHELOR OF SECONDARY EDUCATION MAJOR IN FILIPINO"));
+		$("#course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN MATHEMATICS", "BACHELOR OF SECONDARY EDUCATION MAJOR IN MATHEMATICS"));
+		$("#course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN SCIENCES", "BACHELOR OF SECONDARY EDUCATION MAJOR IN SCIENCES"));
+		$("#course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN SOCIAL STUDIES", "BACHELOR OF SECONDARY EDUCATION MAJOR IN SOCIAL STUDIES"));
+
+	}
+	function optionCab()
+	{
+		$('#course').find('option').remove();
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN HOTEL AND RESTAURANT MANAGEMENT", "BACHELOR OF SCIENCE IN HOTEL AND RESTAURANT MANAGEMENT"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN FINANCIAL MANAGEMENT", "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN FINANCIAL MANAGEMENT"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN HUMAN RESOURCE MANAGEMENT", "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN HUMAN RESOURCE MANAGEMENT"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN MARKETING MANAGEMENT", "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN MARKETING MANAGEMENT"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN MANAGEMENT ACCOUNTING ", "BACHELOR OF SCIENCE IN MANAGEMENT ACCOUNTING "));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT", "BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT"));
+	}
+	function optionCics()
+	{
+		$('#course').find('option').remove();
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- BUSINESS ANALYTICS", "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- BUSINESS ANALYTICS"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- SERVICE MANAGEMENT", "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- SERVICE MANAGEMENT"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- NETWORK TECHNOLOGY", "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- NETWORK TECHNOLOGY"));
+		$("#course").append(new Option("BACHELOR OF SCIENCE IN COMPUTER SCIENCE", "BACHELOR OF SCIENCE IN COMPUTER SCIENCE"));
+
+	}
+
+
+
+
+	  $('#sr_department').on('change',function(){
+			var departmentValue = $(this).val();
+			// alert(departmentValue);
+		  	if (departmentValue == 'cit' ) 
+		  	{
+		  		sr_optionCit();
+		    }
+		  	else if (departmentValue == 'cecs' ) 
+		  	{
+		  		sr_optionCecs();
+		    }
+		  	else if (departmentValue == 'cte' ) 
+		  	{
+		  		sr_optionCte();
+		    }
+		  	else if (departmentValue == 'cas' ) 
+		  	{
+		  		sr_optionCas();
+		    }
+		  	else if (departmentValue == 'cab' ) 
+		  	{
+		  		sr_optionCab();
+		    }
+		  	else if (departmentValue == 'cics' ) 
+		  	{
+		  		sr_optionCics();
+		    }
+		});
+
+
+	// $('#course').on('change',function(){
+	// 	var courseValue = $(this).val();
+	// 	alert(courseValue);
+	// });
+
+
+	function sr_optionCit()
+	{
+		$('#sr_course').find('option').remove();
+		$("#sr_course").append(new Option("AUTOMOTIVE TECHNOLOGY", "AUTOMOTIVE TECHNOLOGY"));
+		$("#sr_course").append(new Option("CIVIL TECHNOLOGY", "CIVIL TECHNOLOGY"));
+		$("#sr_course").append(new Option("COMPUTER TECHNOLOGY", "COMPUTER TECHNOLOGY"));
+		$("#sr_course").append(new Option("DRAFTING TECHNOLOGY", "DRAFTING TECHNOLOGY"));
+		$("#sr_course").append(new Option("ELECTRICAL TECHNOLOGY", "ELECTRICAL TECHNOLOGY"));
+		$("#sr_course").append(new Option("ELECTRONICS TECHNOLOGY", "ELECTRONICS TECHNOLOGY"));
+		$("#sr_course").append(new Option("FOOD TECHNOLOGY", "FOOD TECHNOLOGY"));
+		$("#sr_course").append(new Option("MECHANICAL TECHNOLOGY ", "MECHANICAL TECHNOLOGY "));
+		$("#sr_course").append(new Option("MECHATRONICS TECHNOLOGY", "MECHATRONICS TECHNOLOGY"));
+
+	}
+	function sr_optionCecs()
+	{
+		$('#sr_course').find('option').remove();
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING", "BACHELOR OF SCIENCE IN INDUSTRIAL ENGINEERING"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN MECHATRONICS ENGINEERING", "BACHELOR OF SCIENCE IN MECHATRONICS ENGINEERING"));
+	}
+	function sr_optionCas()
+	{
+		$('#sr_course').find('option').remove();
+		$("#sr_course").append(new Option("BS CRIMINOLOGY", "BS CRIMINOLOGY"));
+		$("#sr_course").append(new Option("BS PSYCHOLOGY", "BS PSYCHOLOGY"));
+	}
+	function sr_optionCte()
+	{
+		$('#sr_course').find('option').remove();
+		$("#sr_course").append(new Option("BACHELOR OF ELEMENTARY EDUCATION", "BACHELOR OF ELEMENTARY EDUCATION"));
+		$("#sr_course").append(new Option("BACHELOR OF PHYSICAL EDUCATION", "BACHELOR OF PHYSICAL EDUCATION"));
+		$("#sr_course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN ENGLISH", "BACHELOR OF SECONDARY EDUCATION MAJOR IN ENGLISH"));
+		$("#sr_course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN FILIPINO", "BACHELOR OF SECONDARY EDUCATION MAJOR IN FILIPINO"));
+		$("#sr_course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN MATHEMATICS", "BACHELOR OF SECONDARY EDUCATION MAJOR IN MATHEMATICS"));
+		$("#sr_course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN SCIENCES", "BACHELOR OF SECONDARY EDUCATION MAJOR IN SCIENCES"));
+		$("#sr_course").append(new Option("BACHELOR OF SECONDARY EDUCATION MAJOR IN SOCIAL STUDIES", "BACHELOR OF SECONDARY EDUCATION MAJOR IN SOCIAL STUDIES"));
+
+	}
+	function sr_optionCab()
+	{
+		$('#sr_course').find('option').remove();
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN HOTEL AND RESTAURANT MANAGEMENT", "BACHELOR OF SCIENCE IN HOTEL AND RESTAURANT MANAGEMENT"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN FINANCIAL MANAGEMENT", "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN FINANCIAL MANAGEMENT"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN HUMAN RESOURCE MANAGEMENT", "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN HUMAN RESOURCE MANAGEMENT"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN MARKETING MANAGEMENT", "BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION MAJOR IN MARKETING MANAGEMENT"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN MANAGEMENT ACCOUNTING ", "BACHELOR OF SCIENCE IN MANAGEMENT ACCOUNTING "));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT", "BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT"));
+	}
+	function sr_optionCics()
+	{
+		$('#sr_course').find('option').remove();
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- BUSINESS ANALYTICS", "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- BUSINESS ANALYTICS"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- SERVICE MANAGEMENT", "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- SERVICE MANAGEMENT"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- NETWORK TECHNOLOGY", "BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY- NETWORK TECHNOLOGY"));
+		$("#sr_course").append(new Option("BACHELOR OF SCIENCE IN COMPUTER SCIENCE", "BACHELOR OF SCIENCE IN COMPUTER SCIENCE"));
+
+	}
 
 
   </script>

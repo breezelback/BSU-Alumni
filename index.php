@@ -131,7 +131,7 @@
 </section>
 <!--  Section Cta End-->
 <!-- Section Testimonial Start -->
-<section class="section testimonial">
+<!-- <section class="section testimonial">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-7 ">
@@ -169,8 +169,34 @@
 
 		</div>
 	</div>
+ -->
 </section>
 
+
+
+<section class="section testimonial">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 ">
+				<div class="section-title">
+					<span class="h6 text-color">Process and Steps in Getting Documents in the Registrar Office </span>
+					<h6 class="mt-3">The Office of the Registrar has updated our Forms for requesting different documents. Attached here are the new links for the different request needed. After accomplishing the form send your request and forms to our FB page/messenger. Thank you!</h6>
+					<center><a href="includes/Process.docx" class="btn mt-2" style="border: 1px solid gray;">Download Process and Steps <i class="fa fa-download"></i></a></center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</section>
+
+
+
+
+
+
+
+<br><hr>
 <div class="google-map">
 	<center>
    	 	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3870.550433825609!2d121.15399471483383!3d14.044642090158431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6ed9735068d7%3A0x97fd25b226e150e7!2sBatangas%20State%20University%20Jose%20P.%20Laurel%20Polytechnic%20College!5e0!3m2!1sen!2sph!4v1630821791584!5m2!1sen!2sph" width="100%" height="450" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
