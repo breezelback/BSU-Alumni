@@ -50,6 +50,9 @@ if(isset($_POST['srcode']) && isset($_POST['password'])) :
                 $_SESSION['account_type'] = $row['account_status'];
                     header("Location: ../");
                 exit();
+            } else {
+                echo "<script>alert('Your account is waiting for approval'); window.location='../login.php';</script>";
+                
             }
 
 
