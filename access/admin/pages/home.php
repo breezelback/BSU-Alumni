@@ -105,3 +105,44 @@ $total_job = $job_count->fetch_array();
         
 </div>
 </div>
+
+<div class="modal" id="modalDegree" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">List of <b id="degreeTitle"></b> holder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="allNameDegree" class="text-center text-dark">
+
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="modalForUseregister" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">List of <b id="month_of"></b> register</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div id="register_this_month" class="text-center text-dark">
+
+      </div>
+      </div>
+
+    </div>
+  </div>
+</div>

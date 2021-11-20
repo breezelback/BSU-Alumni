@@ -142,10 +142,10 @@ $profile_pic['profile_pic'];
     method: "GET",
     success: function(data) {
 
-var ctx = document.getElementById('bar_chart').getContext('2d');
+  var ctx = document.getElementById('bar_chart');
+  var finctx = ctx.getContext('2d');
 
-
-new Chart(ctx, {
+  var regUser = new Chart(finctx, {
     // The type of chart we want to create
     type: 'bar',
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
@@ -194,9 +194,45 @@ new Chart(ctx, {
       display: false
     }  
     }
-});
+  });
 
-    },
+
+  ctx.onclick = function(evt) {
+          var activePoints = regUser.getElementsAtEvent(evt);
+          if (activePoints[0]) {
+            var chartData = activePoints[0]['_chart'].config.data;
+            var idx = activePoints[0]['_index'];
+
+            var label = chartData.labels[idx];
+            var value = chartData.datasets[0].data[idx];
+            // console.log(label)
+
+            $.ajax({
+            url: "./../../methods/ajaxCall.php",
+            method: "post",
+            dataType: "json",
+            data: {
+              key: "get_user_month_register",
+              month: label
+            }, success: (response) => {
+
+              // console.log(response);
+              $('#modalForUseregister').modal('show');
+              document.getElementById("month_of").innerHTML = label;
+              var allName = ""
+              for(let i=0; i < response.length; i++) {
+                allName = allName + "<p>"+response[i].name+" "+response[i].lastname+"</p>";
+              }
+              document.getElementById("register_this_month").innerHTML = allName;
+            }
+          })
+
+
+          }
+    }; // end of onclick
+
+
+   },
     error: function(data) {
         console.log(data);
     }
@@ -206,8 +242,8 @@ new Chart(ctx, {
 
 // this chart is for degree chart
 
-var chartDegree = document.getElementById('chart_for_degree').getContext('2d');
-
+var chartDegree = document.getElementById('chart_for_degree');
+var context = chartDegree.getContext('2d');
 
 $.ajax({
       url: "./../../methods/ajaxCall.php",
@@ -217,37 +253,69 @@ $.ajax({
         key: "graph_for_degree",
       }, success: (response) => {
         console.log(response);
-  new Chart(chartDegree, {
+  var degreeChart = new Chart(context, {
     // The type of chart we want to create
     type: 'bar',
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
 
     // The data for our dataset
-    data: {
-        labels: ['Master', 'PhD', 'MBA', 'Executive Education', 'Undergraduate', 'Other'],
-        datasets: [{
-            label: 'Total ',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [response.master, response.phd, response.mba, response.executive, response.undergraduate, response.other],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-            ],
-        }]
-        },
-        options:{
-          legend: {
-          display: false
-        }  
-        }
-    });
+          data: {
+              labels: ['Masters', 'PhD', 'MBA', 'Executive Education', 'Undergraduate', 'Other'],
+              datasets: [{
+                  label: 'Total ',
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: [response.master, response.phd, response.mba, response.executive, response.undergraduate, response.other],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(255, 205, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 205, 86, 0.2)',
+                  ],
+              }]
+              },
+              options:{
+                legend: {
+                display: false
+              }  
+              }
+          });
 
-      }
+          //click graph
+      chartDegree.onclick = function(evt) {
+          var activePoints = degreeChart.getElementsAtEvent(evt);
+          if (activePoints[0]) {
+            var chartData = activePoints[0]['_chart'].config.data;
+            var idx = activePoints[0]['_index'];
+
+            var label = chartData.labels[idx];
+            var value = chartData.datasets[0].data[idx];
+
+            $.ajax({
+            url: "./../../methods/ajaxCall.php",
+            method: "post",
+            dataType: "json",
+            data: {
+              key: "get_degree",
+              degree: label
+            }, success: (response) => {
+              $('#modalDegree').modal('show');
+              document.getElementById("degreeTitle").innerHTML = label;
+              var allName = ""
+              for(let i=0; i < response.length; i++) {
+                allName = allName + "<p>"+response[i].name+"</p>";
+              }
+              document.getElementById("allNameDegree").innerHTML = allName;
+            }
+          })
+
+
+          }
+    };
+
+  }// end of success
 })
 
 

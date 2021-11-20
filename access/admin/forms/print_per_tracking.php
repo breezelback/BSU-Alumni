@@ -43,6 +43,14 @@ $row = $query->fetch_array();
 
 
 /*Cell(width , height , text , border , end line , [align] )*/
+$this->SetFont('Arial','B',15);
+$this->cell(60, 10, "", 0, 0, 'C');
+$this->cell(60, 10, "Tracking Information", 0, 0, 'C');
+$this->cell(60, 10, "", 0, 1, 'C');
+
+$this->cell(60, 10, "", 0, 0, 'C');
+$this->cell(60, 10, "   ", 0, 0, 'C');
+$this->cell(60, 10, "", 0, 1, 'C');
 
 $this->SetFont('Arial','B',15);
 $this->cell(60, 10, "Full name", 0, 0, 'C');

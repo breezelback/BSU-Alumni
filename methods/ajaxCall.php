@@ -416,6 +416,36 @@ if(isset($_POST["key"])) :
 
     endif;
 
+    if($key == 'get_degree') :
+        $data = [];
+        $degree = strtolower($_POST['degree']);
+
+        $sql = $database->conn->query("SELECT * FROM tbl_tracking WHERE degree = '$degree'");
+
+        while($result = $sql->fetch_assoc()) {
+            $data[] = $result;
+        }
+        
+        exit(json_encode($data));
+    endif;
+
+    if($key == 'get_user_month_register') :
+        $data = [];
+        $month = $_POST['month'];
+        $currentYear = date("Y");
+        $nmonth = date("m", strtotime($month));
+
+        $sql = $database->conn->query("SELECT * FROM user_information WHERE YEAR(date_register) = '$currentYear' AND MONTH(date_register) = $nmonth");
+       
+        // $sql = $database->conn->query("SELECT * FROM tbl_tracking WHERE degree = '$degree'");
+
+        while($result = $sql->fetch_assoc()) {
+            $data[] = $result;
+        }
+        
+        exit(json_encode($data));
+    endif;
+
 
 endif; // end of all
 
